@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/example/duan1/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.duan1;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\npublic class MainActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_main);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n            return insets;\r\n        });\r\n\r\n        // Hello\r\n        // chao\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/duan1/MainActivity.java b/app/src/main/java/com/example/duan1/MainActivity.java
+--- a/app/src/main/java/com/example/duan1/MainActivity.java	(revision 901a57e79f896b18ec9a28228a59cab9254f9631)
++++ b/app/src/main/java/com/example/duan1/MainActivity.java	(date 1731382101013)
+@@ -22,6 +22,6 @@
+         });
+ 
+         // Hello
+-        // chao
++        // chao4444444444
+     }
+ }
+\ No newline at end of file
