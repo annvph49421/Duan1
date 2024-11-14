@@ -5,44 +5,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".ManHinhLogin.ManHinh4"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_7"
-        android:layout_marginTop="50dp"/>
+        android:layout_width="320dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/anh4"
+       />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="An toàn"
-        android:textSize="40dp"
+        android:layout_marginTop="29dp"
+        android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_marginLeft="90dp"/>
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cam kết hàng chính hãng 100%, đầy đủ hóa đơn, giấy tờ. Bảo hành uy tín, đổi trả dễ dàng."
-
+        android:textColor="#9E9E9E"
+        android:layout_marginTop="30dp"
         android:textSize="20dp"
-        android:layout_marginLeft="7dp"
+        android:gravity="center"
         android:layout_gravity="center"
 
         />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_8"
-        android:layout_marginTop="30dp"
+        android:src="@drawable/img_4"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"/>
     <Button
         android:id="@+id/btnnext"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:background="@drawable/radius_button"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="NEXT"/>
-
-
+        android:layout_marginTop="30dp"
+        android:text="Bỏ Qua"/>
 </LinearLayout>

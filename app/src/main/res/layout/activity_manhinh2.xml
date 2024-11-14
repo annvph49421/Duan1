@@ -5,29 +5,32 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".ManHinhLogin.Manhinh2"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_3"
+        android:layout_width="300dp"
+        android:layout_height="320dp"
+        android:src="@drawable/anh2"
         android:layout_marginTop="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
         android:text="Tiện ích"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mọi thương hiệu, mọi mẫu mã điện thoại đều có sẵn. So sánh, lựa chọn và mua sắm dễ dàng chưa bao giờ đơn giản đến thế"
-
+        android:gravity="center"
         android:textSize="20dp"
-        android:layout_marginLeft="7dp"
+        android:textColor="#9E9E9E"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
 
         />
@@ -35,14 +38,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_4"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"/>
     <Button
         android:id="@+id/btnnext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/radius_button"
         android:text="NEXT"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Bỏ Qua"/>
+
 
 
 

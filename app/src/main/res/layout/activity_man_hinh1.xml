@@ -3,44 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManHinhLogin.ManHinh1"
     android:orientation="vertical">
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/img_1"
         android:layout_marginTop="50dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="29dp"
         android:text="Nhanh chóng"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_marginLeft="90dp"/>
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tìm kiếm và đặt mua điện thoại mơ ước chỉ trong vài giây. Giao hàng nhanh chóng."
-
+        android:layout_marginTop="30dp"
         android:textSize="20dp"
-        android:layout_marginLeft="7dp"
+        android:gravity="center"
+        android:textColor="#9E9E9E"
         android:layout_gravity="center"
 
         />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_2"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/img_2" />
+
     <Button
         android:id="@+id/btnnext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/radius_button"
         android:text="NEXT"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Bỏ Qua"/>
 
 
 </LinearLayout>
