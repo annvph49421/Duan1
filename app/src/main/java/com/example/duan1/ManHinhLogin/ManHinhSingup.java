@@ -7,15 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.duan1.R;
 
-public class ManHingSingup extends AppCompatActivity {
+public class ManHinhSingup extends AppCompatActivity {
 
     private EditText nameInput, emailInput, passwordInput, retypePasswordInput;
     private Button signUpButton;
@@ -45,10 +41,10 @@ public class ManHingSingup extends AppCompatActivity {
 
                 if (validateInputs(name, email, password, retypePassword)) {
                     // Thực hiện logic đăng ký tài khoản tại đây
-                    Toast.makeText(ManHingSingup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManHinhSingup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
 
                     // Điều hướng sang màn hình khác hoặc quay lại màn hình đăng nhập
-                    Intent intent = new Intent(ManHingSingup.this, ManHinhLogin.class);
+                    Intent intent = new Intent(ManHinhSingup.this, ManHinhLogin.class);
                     startActivity(intent);
                     finish();
                 }

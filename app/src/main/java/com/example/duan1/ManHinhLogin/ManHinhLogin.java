@@ -38,7 +38,7 @@ boolean isPasswordVisible = false;
         cbremember = findViewById(R.id.cb);
         txtforgotpassword = findViewById(R.id.txtfogotpassword);
         txtsingup = findViewById(R.id.txtsingup);
-        eyeIcon = findViewById(R.id.eyeIcon);
+
 
         // Xử lý sự kiện nút Đăng nhập
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -78,24 +78,24 @@ boolean isPasswordVisible = false;
         });
 
         // Xử lý sự kiện nhấn vào biểu tượng mắt để hiển thị/ẩn mật khẩu
-        eyeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPasswordVisible) {
-                    // Ẩn mật khẩu
-                    edpassword.setInputType(129); // InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
-                    eyeIcon.setImageResource(R.drawable.img_9); // Đổi thành biểu tượng mắt đóng
-                    isPasswordVisible = false;
-                } else {
-                    // Hiển thị mật khẩu
-                    edpassword.setInputType(145); // InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                    eyeIcon.setImageResource(R.drawable.img_9); // Đổi thành biểu tượng mắt mở
-                    isPasswordVisible = true;
-                }
-                // Đặt con trỏ văn bản ở cuối văn bản
-                edpassword.setSelection(edpassword.getText().length());
-            }
-        });
+//        eyeIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isPasswordVisible) {
+//                    // Ẩn mật khẩu
+//                    edpassword.setInputType(129); // InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
+//                    eyeIcon.setImageResource(R.drawable.img_9); // Đổi thành biểu tượng mắt đóng
+//                    isPasswordVisible = false;
+//                } else {
+//                    // Hiển thị mật khẩu
+//                    edpassword.setInputType(145); // InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//                    eyeIcon.setImageResource(R.drawable.img_9); // Đổi thành biểu tượng mắt mở
+//                    isPasswordVisible = true;
+//                }
+//                // Đặt con trỏ văn bản ở cuối văn bản
+//                edpassword.setSelection(edpassword.getText().length());
+//            }
+//        });
 
     }
 }
