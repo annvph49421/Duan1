@@ -19,12 +19,12 @@ public class ManHingSingup extends AppCompatActivity {
 
     private EditText nameInput, emailInput, passwordInput, retypePasswordInput;
     private Button signUpButton;
-    private ImageButton backButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup); // Đảm bảo layout đúng với tên file XML của bạn
+
 
         // Ánh xạ các thành phần giao diện
         nameInput = findViewById(R.id.nameInput);
@@ -32,7 +32,7 @@ public class ManHingSingup extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
         retypePasswordInput = findViewById(R.id.retypePasswordInput);
         signUpButton = findViewById(R.id.signUpButton);
-        backButton = findViewById(R.id.);
+
 
         // Xử lý sự kiện nút "Sign Up"
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +55,8 @@ public class ManHingSingup extends AppCompatActivity {
             }
         });
 
-        // Xử lý sự kiện nút "Back"
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Quay lại màn hình trước đó
-            }
-        });
+
+
     }
 
     // Hàm kiểm tra tính hợp lệ của dữ liệu nhập vào

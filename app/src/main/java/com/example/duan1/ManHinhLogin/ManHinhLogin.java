@@ -1,5 +1,6 @@
 package com.example.duan1.ManHinhLogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +70,8 @@ boolean isPasswordVisible = false;
         txtsingup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 // Chuyển hướng sang màn hình đăng ký
                 Toast.makeText(ManHinhLogin.this, "Sign Up clicked", Toast.LENGTH_SHORT).show();
             }
