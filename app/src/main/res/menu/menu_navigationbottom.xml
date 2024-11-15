@@ -3,27 +3,27 @@
     <item
         android:id="@+id/mbHome"
         android:icon="@drawable/ic_home"
-        />
+        android:title="Home" />
 
     <item
         android:id="@+id/mbphone"
         android:icon="@drawable/ic_smartphone"
-        />
+        android:title="Phone" />
 
     <item
         android:id="@+id/mbgiohang"
         android:icon="@drawable/ic_basket"
-        />
+        android:title="Giỏ hàng" />
 
     <item
         android:id="@+id/mbvi"
         android:icon="@drawable/ic_wallet"
-        />
+        android:title="Xác nhận đơn hàng " />
 
     <item
         android:id="@+id/mbuser"
         android:icon="@drawable/ic_user"
-        />
+        android:title="Thông tin cá nhân " />
 
 
 </menu>
