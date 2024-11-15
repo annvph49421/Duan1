@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mbHome"
+        android:icon="@drawable/ic_home"
+        />
+
+    <item
+        android:id="@+id/mbphone"
+        android:icon="@drawable/ic_smartphone"
+        />
+
+    <item
+        android:id="@+id/mbgiohang"
+        android:icon="@drawable/ic_basket"
+        />
+
+    <item
+        android:id="@+id/mbvi"
+        android:icon="@drawable/ic_wallet"
+        />
+
+    <item
+        android:id="@+id/mbuser"
+        android:icon="@drawable/ic_user"
+        />
+
+
+</menu>
