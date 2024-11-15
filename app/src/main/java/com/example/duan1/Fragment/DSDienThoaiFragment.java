@@ -59,10 +59,10 @@ public class DSDienThoaiFragment extends Fragment {
 
     private List<PhoneModels> getListPhone(){
         List<PhoneModels> phoneModelsList = new ArrayList<>();
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 VNĐ"));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 VNĐ"));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 VNĐ"));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 VNĐ"));
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 "));
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 "));
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 "));
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"16.000.000 "));
         return phoneModelsList;
 
 
