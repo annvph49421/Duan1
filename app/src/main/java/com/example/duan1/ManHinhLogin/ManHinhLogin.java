@@ -41,39 +41,40 @@ boolean isPasswordVisible = false;
 
 
         // Xử lý sự kiện nút Đăng nhập
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = edemail.getText().toString().trim();
-                String password = edpassword.getText().toString().trim();
+//        btnlogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email = edemail.getText().toString().trim();
+//                String password = edpassword.getText().toString().trim();
+//
+//                if (email.isEmpty() || password.isEmpty()) {
+//                    Toast.makeText(ManHinhLogin.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    // Thực hiện logic đăng nhập ở đây
+//                    // Ví dụ: Xác thực email và mật khẩu
+//                    Toast.makeText(ManHinhLogin.this, "Login successful", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(ManHinhLogin.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Thực hiện logic đăng nhập ở đây
-                    // Ví dụ: Xác thực email và mật khẩu
-                    Toast.makeText(ManHinhLogin.this, "Login successful", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Xử lý sự kiện nhấn vào "Forgot Password"
-        txtforgotpassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển hướng hoặc hiển thị thông báo
-                Toast.makeText(ManHinhLogin.this, "Forgot Password clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        // Xử lý sự kiện nhấn vào "Forgot Password"
+//        txtforgotpassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Chuyển hướng hoặc hiển thị thông báo
+//                Toast.makeText(ManHinhLogin.this, "Forgot Password clicked", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         // Xử lý sự kiện nhấn vào "Sign Up"
         txtsingup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ManHinhLogin.this, ManHinhSignUp.class);
+                startActivity(intent);
 
                 // Chuyển hướng sang màn hình đăng ký
-                Toast.makeText(ManHinhLogin.this, "Sign Up clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
 
