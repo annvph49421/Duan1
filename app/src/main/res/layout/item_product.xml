@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="210dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+            
+            <ImageView
+                android:id="@+id/AnhSanPham"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:src="@drawable/iphone15"/>
+            
+            <TextView
+                android:id="@+id/TenSanPham"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="iPhone 15"
+                android:layout_marginLeft="50dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingTop="10dp"/>
+            
+            <TextView
+                android:id="@+id/GiaSanPham"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá: 15.000.000đ"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="40dp"
+                android:paddingTop="4dp"/>
+            
+        </LinearLayout>
+
+        
+        
+        
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>

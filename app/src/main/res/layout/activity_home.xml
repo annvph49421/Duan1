@@ -45,21 +45,21 @@
         app:headerLayout="@layout/header_layout"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="80dp"
-        >
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingTop="80dp"-->
+<!--        >-->
 
-        <ImageView
-            android:layout_width="390dp"
-            android:layout_height="141dp"
-            android:src="@drawable/background_home1"
-            android:layout_gravity="center_horizontal"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="390dp"-->
+<!--            android:layout_height="141dp"-->
+<!--            android:src="@drawable/background_home1"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,33 +68,33 @@
         android:layout_marginTop="220dp"
         >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_apple"
-            android:layout_weight="1"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/icon_apple"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_oppo"
-            android:layout_weight="1"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/icon_oppo"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_vivo"
-            android:layout_weight="1"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/icon_vivo"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_samsung"
-            android:layout_weight="1"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/icon_samsung"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"

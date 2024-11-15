@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_marginTop="60dp"
     tools:context=".ManHinhTT.TTCaNhanFragment">
 
 
@@ -265,6 +266,15 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="600dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#F5F5F5"
+        app:cardCornerRadius="16dp"/>
 
 
 </FrameLayout>

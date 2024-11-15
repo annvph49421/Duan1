@@ -25,7 +25,7 @@ public class TTCaNhanFragment extends Fragment {
 
     public static TTCaNhanFragment newInstance() {
         TTCaNhanFragment fragment = new TTCaNhanFragment();
-        return fragment;
+        return new TTCaNhanFragment();
     }
 
     @Override
