@@ -1,4 +1,4 @@
-package com.example.duan1.ManHinhTT;
+package com.example.duan1.Fragment;
 
 import android.os.Bundle;
 
@@ -12,21 +12,24 @@ import com.example.duan1.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TTCaNhanFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TTCaNhanFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    public TTCaNhanFragment() {
+    public HomeFragment () {
         // Required empty public constructor
     }
 
 
-    public static TTCaNhanFragment newInstance() {
-        TTCaNhanFragment fragment = new TTCaNhanFragment();
-        return new TTCaNhanFragment();
+
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+
+        return new HomeFragment();
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,9 @@ public class TTCaNhanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_t_t_ca_nhan, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }

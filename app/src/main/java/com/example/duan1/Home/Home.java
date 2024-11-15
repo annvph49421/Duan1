@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.duan1.Fragment.HomeFragment;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,9 +27,9 @@ public class Home extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolBar;
-    private NavigationView navigationView;
+    NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,61 +41,60 @@ public class Home extends AppCompatActivity {
             return insets;
         });
 
+
         //ánh xạ
         drawerLayout= findViewById(R.id.main);
         toolBar= findViewById(R.id.toolBar);
-        navigationView= findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
         setSupportActionBar(toolBar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, 0, 0);
         toggle.setDrawerIndicatorEnabled(true);
+
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         toggle.syncState();
 
-        drawerLayout.addDrawerListener(toggle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, TTCaNhanFragment.newInstance()).commit();
         navigationView.setNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
-            int id= item.getItemId();
-            if(id == R.id.mDSDT){
-                toolBar.setTitle("Thong tin ca nhan");
-                fragment = TTCaNhanFragment.newInstance();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .commit();
-
+            int id = item.getItemId();
+            if (id == R.id.mDSDT) {
+                toolBar.setTitle("Trang chủ");
+                fragment =TTCaNhanFragment.newInstance();
             }
-            drawerLayout.closeDrawer(GravityCompat.START); // Đóng Drawer sau khi chọn
-            return true;
 
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            drawerLayout.closeDrawers();
+            return true;
         });
 
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
+            int id = item.getItemId();
+            if (id == R.id.mbuser) {
+                toolBar.setTitle("Thông tin cá nhân");
+                fragment =TTCaNhanFragment.newInstance();
+            } else if (id == R.id.mbHome) {
+                {
+                toolBar.setTitle("Trang chủ");
+                fragment = HomeFragment.newInstance();
+                }
+            }
 
-
-
-        //setup toolbar
-        setSupportActionBar(toolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            drawerLayout.closeDrawers();
+            return true;
+        });
 
     }
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home){
-            drawerLayout.openDrawer(GravityCompat.START);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
 
