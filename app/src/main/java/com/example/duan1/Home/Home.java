@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
@@ -88,6 +89,9 @@ public class Home extends AppCompatActivity {
                 toolBar.setTitle("Trang chủ");
                 fragment = HomeFragment.newInstance();
                 }
+            } else if (id == R.id.mbphone) {
+                toolBar.setTitle("Danh sách điện thoại");
+                fragment = DSDienThoaiFragment.newInstance();
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
