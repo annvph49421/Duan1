@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.duan1.Home.Home;
 import com.example.duan1.R;
 
 public class ManHinhLogin extends AppCompatActivity {
@@ -75,6 +76,14 @@ boolean isPasswordVisible = false;
 
                 // Chuyển hướng sang màn hình đăng ký
 
+            }
+        });
+
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ManHinhLogin.this, Home.class);
+                startActivity(intent);
             }
         });
 
