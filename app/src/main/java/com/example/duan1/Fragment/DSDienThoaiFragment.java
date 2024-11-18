@@ -1,5 +1,6 @@
 package com.example.duan1.Fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.duan1.Adapter.PhoneAdapter;
 import com.example.duan1.Models.PhoneModels;
 import com.example.duan1.R;
+import com.example.duan1.SQLite.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,8 @@ public class DSDienThoaiFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
     }
 

@@ -30,7 +30,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="50dp"
         />
 
     <!-- CardView chứa form đăng nhập -->
@@ -43,65 +43,85 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
             android:padding="16dp">
 
             <!-- Email -->
             <TextView
-                android:paddingLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
                 android:text="EMAIL"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edemail"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 android:layout_width="380dp"
                 android:layout_height="60dp"
-                android:paddingStart="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/thiet_ke"
                 android:hint="example@gmail.com"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:paddingStart="10dp" />
+
 
             <!-- Password -->
             <TextView
-                android:paddingLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PASSWORD"
                 android:layout_marginTop="16dp"
+                android:paddingLeft="15dp"
+                android:text="PASSWORD"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edpassword"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_width="380dp"
-                android:layout_height="60dp"
-                android:paddingStart="10dp"
-                android:hint="* * * * * * * * * * *"
-                android:background="@drawable/thiet_ke"
 
-                android:inputType="textPassword" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <!-- EditText cho mật khẩu -->
+                <EditText
+                    android:id="@+id/edpassword"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/thiet_ke"
+                    android:hint="* * * * * * * * * * *"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp" />
+
+                <!-- ImageView biểu tượng con mắt -->
+                <ImageView
+                    android:id="@+id/eyeIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:src="@drawable/img_9" /> <!-- Thay ic_eye_icon bằng tên tệp hình ảnh con mắt của bạn -->
+            </LinearLayout>
+
+
 
             <!-- Checkbox và Forgot Password -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="8dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:layout_marginLeft="16dp"
                     android:id="@+id/cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:text="Remember me"
                     android:textColor="#000000" />
 
@@ -109,57 +129,54 @@
                     android:id="@+id/txtfogotpassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forgot Password"
                     android:layout_gravity="end"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:textColor="#FF9800"
-                    android:gravity="end"/>
+                    android:gravity="end"
+                    android:text="Forgot Password"
+                    android:textColor="#FF9800" />
             </LinearLayout>
 
             <!-- Button đăng nhập -->
             <Button
-                android:layout_marginLeft="16dp"
                 android:id="@+id/btnlogin"
                 android:layout_width="380dp"
                 android:layout_height="60dp"
-                android:text="LOG IN"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/thiet_ke"
                 android:backgroundTint="#FF9800"
+                android:text="LOG IN"
                 android:textColor="#FFFFFF" />
-
 
 
             <TextView
                 android:id="@+id/txtsingup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don’t have an account? SIGN UP"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:text="Don’t have an account? SIGN UP"
                 android:textColor="#FF9800"
-                android:textStyle="bold"/>
-
-
+                android:textStyle="bold" />
 
 
             <!-- Hoặc đăng nhập bằng mạng xã hội -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Or"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:text="Or"
                 android:textColor="@color/black" />
 
             <!-- Các nút mạng xã hội -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="50dp"
