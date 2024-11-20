@@ -1,12 +1,10 @@
 package com.example.duan1.ChiTietSP;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,17 +17,17 @@ import com.example.duan1.R;
 
 import java.text.DecimalFormat;
 
-public class ctsp_ip extends AppCompatActivity {
-    ImageView btnBack_ip, btnCong_ip, btnTru_ip, btnNext_ip, img_ct_ip, btnPrev_ip;
-    TextView tvSoluong_ip, tvTongTien_ip;
+public class ctsp_oppo extends AppCompatActivity {
+    ImageView btnBack_oppo, btnCong_oppo, btnTru_oppo, btnNext_oppo, img_ct_oppo, btnPrev_oppo;
+    TextView tvSoluong_oppo, tvTongTien_oppo;
     int k= 1;
-    int tong= 29490000;
+    int tong= 12290000;
 
     int [] images= {
-            R.drawable.product_ip15promax_1,
-            R.drawable.product_ip15promax_2,
-            R.drawable.product_ip15promax_3,
-            R.drawable.product_ip15promax_4
+            R.drawable.product_oppo12_1,
+            R.drawable.product_oppo12_2,
+            R.drawable.product_oppo12_3,
+            R.drawable.product_oppo12_4
     };
 
     int index= 0;
@@ -39,35 +37,34 @@ public class ctsp_ip extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_ctsp_ip);
+        setContentView(R.layout.activity_ctsp_oppo);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
-        btnBack_ip= findViewById(R.id.btnBack_ip);
-        tvSoluong_ip= findViewById(R.id.tvSoluong_ip);
-        tvTongTien_ip= findViewById(R.id.tvTongTien_ip);
-        btnCong_ip= findViewById(R.id.btnCong_ip);
-        btnTru_ip= findViewById(R.id.btnTru_ip);
-        btnNext_ip= findViewById(R.id.btnNext_ip);
-        img_ct_ip= findViewById(R.id.img_ct_ip);
-        btnPrev_ip= findViewById(R.id.btnPrev_ip);
+        btnBack_oppo= findViewById(R.id.btnBack_oppo);
+        tvSoluong_oppo= findViewById(R.id.tvSoluong_oppo);
+        tvTongTien_oppo= findViewById(R.id.tvTongTien_oppo);
+        btnCong_oppo= findViewById(R.id.btnCong_oppo);
+        btnTru_oppo= findViewById(R.id.btnTru_oppo);
+        btnNext_oppo= findViewById(R.id.btnNext_oppo);
+        img_ct_oppo= findViewById(R.id.img_ct_oppo);
+        btnPrev_oppo= findViewById(R.id.btnPrev_oppo);
 
 
 
         //nút thoát
-        btnBack_ip.setOnClickListener(new View.OnClickListener() {
+        btnBack_oppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ctsp_ip.this, Home.class));
+                startActivity(new Intent(ctsp_oppo.this, Home.class));
             }
         });
 
         //chuyển ảnh
-        btnPrev_ip.setOnClickListener(new View.OnClickListener() {
+        btnPrev_oppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (index > 0){
@@ -76,11 +73,11 @@ public class ctsp_ip extends AppCompatActivity {
                 }else {
                     index= images.length - 1;
                 }
-                img_ct_ip.setImageResource(images[index]);
+                img_ct_oppo.setImageResource(images[index]);
             }
         });
 
-        btnNext_ip.setOnClickListener(new View.OnClickListener() {
+        btnNext_oppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (index < images.length - 1){
@@ -88,31 +85,31 @@ public class ctsp_ip extends AppCompatActivity {
                 }else {
                     index= 0;
                 }
-                img_ct_ip.setImageResource(images[index]);
+                img_ct_oppo.setImageResource(images[index]);
             }
         });
 
         //thêm số lượng
-        tvSoluong_ip.setText("" +k);
-        tvTongTien_ip.setText(Utils.formatCurrency(tong));
+        tvSoluong_oppo.setText("" +k);
+        tvTongTien_oppo.setText(ctsp_ip.Utils.formatCurrency(tong));
 
 
-        btnCong_ip.setOnClickListener(new View.OnClickListener() {
+        btnCong_oppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 k++;
-                tvSoluong_ip.setText("" +k);
-                tvTongTien_ip.setText(Utils.formatCurrency(+tong * k));
+                tvSoluong_oppo.setText("" +k);
+                tvTongTien_oppo.setText(ctsp_ip.Utils.formatCurrency(+tong * k));
             }
         });
 
-        btnTru_ip.setOnClickListener(new View.OnClickListener() {
+        btnTru_oppo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (k > 1){
                     k--;
-                    tvSoluong_ip.setText("" +k);
-                    tvTongTien_ip.setText(Utils.formatCurrency(+tong * k));
+                    tvSoluong_oppo.setText("" +k);
+                    tvTongTien_oppo.setText(ctsp_ip.Utils.formatCurrency(+tong * k));
                 }
             }
         });
@@ -126,4 +123,3 @@ public class ctsp_ip extends AppCompatActivity {
         }
     }
 }
-

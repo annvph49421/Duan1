@@ -63,10 +63,10 @@ public class DSDienThoaiFragment extends Fragment {
 
     private List<PhoneModels> getListPhone(){
         List<PhoneModels> phoneModelsList = new ArrayList<>();
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15",4.7,"30.000.000 "));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_oppoa3,"Oppo A3",4.5,"10.000.000 "));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_xiaomii,"Xiaomi 11",5.0,"11.000.000 "));
-        phoneModelsList.add(new PhoneModels(R.drawable.bg_iphone14,"Iphone 14",4.7,"21.000.000 "));
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_ip15,"Iphone 15 Pro Max 256GB",5,"29.490.000đ"));
+        phoneModelsList.add(new PhoneModels(R.drawable.product_oppo12_1,"OPPO Reno12 5GB (12GB 256GB)",4.7,"12.290.000đ"));
+        phoneModelsList.add(new PhoneModels(R.drawable.product_samsung_1,"Samsung Galaxy S24 Ultra 12GB 256GB",5.0,"29.990.000đ"));
+        phoneModelsList.add(new PhoneModels(R.drawable.product_vivo_1,"Vivo V30E 12GB 256GB",4.5,"9.490.000đ"));
         return phoneModelsList;
 
 

@@ -63,11 +63,10 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         productList = new ArrayList<>();
-        productList.add(new ProductModels(R.drawable.iphone15,"iPhone 15","Giá: 31.000.000đ"));
-        productList.add(new ProductModels(R.drawable.bg_iphone14,"iPhone 14","Giá: 16.000.000đ"));
-        productList.add(new ProductModels(R.drawable.bg_xiaomii,"Xiaomi 11","Giá: 15.000.000đ"));
-        productList.add(new ProductModels(R.drawable.bg_oppoa3,"Oppo A3","Giá: 11.000.000đ"));
-        productList.add(new ProductModels(R.drawable.iphone15,"iPhone 15","Giá: 31.000.000đ"));
+        productList.add(new ProductModels(R.drawable.iphone15,"Iphone 15 Pro Max 256GB","Giá: 31.000.000đ"));
+        productList.add(new ProductModels(R.drawable.product_oppo12_1,"OPPO Reno12 5GB (12GB 256GB)","Giá: 12.290.000đ"));
+        productList.add(new ProductModels(R.drawable.product_samsung_1,"Samsung Galaxy S24 Ultra 12GB 256GB","Giá: 29.990.000đ"));
+        productList.add(new ProductModels(R.drawable.product_vivo_1,"Vivo V30E 12GB 256GB","Giá: 9.490.000đ"));
 
         productAdapter = new ProductAdapter(productList);
         recyclerView.setAdapter(productAdapter);
