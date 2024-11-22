@@ -3,8 +3,10 @@ package com.example.duan1.ChiTietSP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.duan1.DAO.CartDAO;
+import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.Home.Home;
+
+import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 
 import java.text.DecimalFormat;
@@ -20,6 +26,7 @@ import java.text.DecimalFormat;
 public class ctsp_vivo extends AppCompatActivity {
     ImageView btnBack_vivo, btnCong_vivo, btnTru_vivo, btnNext_vivo, img_ct_vivo, btnPrev_vivo;
     TextView tvSoluong_vivo, tvTongTien_vivo;
+    Button btnAdd_vivo;
     int k= 1;
     int tong= 9490000;
 
@@ -51,6 +58,7 @@ public class ctsp_vivo extends AppCompatActivity {
         btnNext_vivo= findViewById(R.id.btnNext_vivo);
         img_ct_vivo= findViewById(R.id.img_ct_vivo);
         btnPrev_vivo= findViewById(R.id.btnPrev_vivo);
+        btnAdd_vivo = findViewById(R.id.btnAdd_vivo);
 
 
 
@@ -90,7 +98,7 @@ public class ctsp_vivo extends AppCompatActivity {
 
         //thêm số lượng
         tvSoluong_vivo.setText("" +k);
-        tvTongTien_vivo.setText(ctsp_ip.Utils.formatCurrency(tong));
+        tvTongTien_vivo.setText(Utils.formatCurrency(tong));
 
 
         btnCong_vivo.setOnClickListener(new View.OnClickListener() {
@@ -98,9 +106,10 @@ public class ctsp_vivo extends AppCompatActivity {
             public void onClick(View view) {
                 k++;
                 tvSoluong_vivo.setText("" +k);
-                tvTongTien_vivo.setText(ctsp_ip.Utils.formatCurrency(+tong * k));
+                tvTongTien_vivo.setText(Utils.formatCurrency(+tong * k));
             }
         });
+
 
         btnTru_vivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +117,32 @@ public class ctsp_vivo extends AppCompatActivity {
                 if (k > 1){
                     k--;
                     tvSoluong_vivo.setText("" +k);
-                    tvTongTien_vivo.setText(ctsp_ip.Utils.formatCurrency(+tong * k));
+                    tvTongTien_vivo.setText(Utils.formatCurrency(+tong * k));
                 }
             }
         });
+        btnAdd_vivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CartDAO cartDAO = new CartDAO(ctsp_vivo.this);
+
+                CartItem cartItem = new CartItem(
+                        "OPPO Reno12",
+                        k, // số lượng
+                        tong, // giá mỗi sản phẩm
+                        R.drawable.product_oppo12_1 // ảnh minh họa
+                );
+
+                cartDAO.addToCart(cartItem);
+                Toast.makeText(ctsp_vivo.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+
+                // Chuyển sang màn hình giỏ hàng
+                Intent intent = new Intent(ctsp_vivo.this, CartActivity.class);
+                startActivity(intent); // Chuyển màn hình
+            }
+        });
+
+
 
     }
 
@@ -121,5 +152,6 @@ public class ctsp_vivo extends AppCompatActivity {
             return formatter.format(amount) + "đ";
         }
     }
+
 
 }

@@ -201,15 +201,14 @@
 
         <TextView
             android:id="@+id/tvTongTien_ip"
-            android:layout_width="140dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text=""
             android:textColor="#FA0000"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:textStyle="bold"
             android:textSize="24dp"
-            />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/btnTru_ip"
@@ -217,7 +216,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_tru"
             android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/khungdau"
             android:padding="1dp"
             />
@@ -238,12 +237,11 @@
             android:id="@+id/btnCong_ip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_cong"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/khungdau"
             android:padding="1dp"
-            />
+            android:src="@drawable/ic_cong" />
 
     </LinearLayout>
 

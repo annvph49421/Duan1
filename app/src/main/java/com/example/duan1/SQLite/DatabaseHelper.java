@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     // Tên cơ sở dữ liệu và phiên bản
     private static final String DATABASE_NAME = "StoreDB";
     private static final int DATABASE_VERSION = 1;
@@ -22,10 +23,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NHAN_TIN = "NhanTin";
     public static final String TABLE_DANH_GIA = "DanhGia";
 
+
+
+
+
     // Constructor
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -71,6 +77,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "TongTien REAL NOT NULL," +
                 "FOREIGN KEY (IdNguoiDung) REFERENCES NguoiDung(Id))");
 
+       
+
         // Tạo bảng DonHangChiTiet
         db.execSQL("CREATE TABLE " + TABLE_DON_HANG_CHI_TIET + " (" +
                 "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -107,6 +115,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "ThoiGianDanhGia TEXT," +
                 "FOREIGN KEY (IdNguoiDung) REFERENCES NguoiDung(Id)," +
                 "FOREIGN KEY (IdSanPham) REFERENCES SanPham(Id))");
+
+
+
     }
 
     @Override
@@ -120,7 +131,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MA_GIAM_GIA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NHAN_TIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DANH_GIA);
+
+
+
         onCreate(db);
+
+
+
     }
 
     public boolean addUser(String name, String email, String password) {
@@ -171,4 +188,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return isUserExists;
     }
+
+
 }

@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_home"
         />
     <item
-        android:id="@+id/mDSDT"
+        android:id="@+id/mDST"
         android:title="Danh sách điện thoại"
         android:icon="@drawable/ic_dsdt"
         />
