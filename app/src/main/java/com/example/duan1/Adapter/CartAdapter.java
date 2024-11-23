@@ -89,6 +89,26 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
             cartActivity.updateTotalPrice();  // Cập nhật lại tổng giá trị giỏ hàng
             Toast.makeText(getContext(), "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
         });
+        // Xóa sản phẩm
+        removeProduct.setOnClickListener(v -> {
+            // Tạo AlertDialog để xác nhận việc xóa sản phẩm
+            new android.app.AlertDialog.Builder(getContext())
+                    .setTitle("Xác nhận xóa")
+                    .setMessage("Bạn có chắc chắn muốn xóa sản phẩm này?")
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        // Nếu chọn "Có", xóa sản phẩm trong cơ sở dữ liệu và danh sách
+                        cartDAO.removeItem(item);  // Xóa sản phẩm trong giỏ hàng
+                        cartItems.remove(position); // Xóa sản phẩm khỏi danh sách hiển thị
+                        notifyDataSetChanged(); // Cập nhật lại ListView
+                        cartActivity.updateTotalPrice();  // Cập nhật lại tổng giá trị giỏ hàng
+                        Toast.makeText(getContext(), "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Không", (dialog, which) -> {
+                        // Nếu chọn "Không", không làm gì cả
+                        dialog.dismiss();
+                    })
+                    .show(); // Hiển thị AlertDialog
+        });
 
         return convertView;
     }

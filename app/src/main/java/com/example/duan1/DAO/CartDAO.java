@@ -80,7 +80,7 @@ public class CartDAO {private CartDatabaseHelper dbHelper;
         db.delete(CartDatabaseHelper.TABLE_CART, null, null);
         db.close();
     }
-    // Xóa sản phẩm khỏi giỏ hàng
+
 
 
 }

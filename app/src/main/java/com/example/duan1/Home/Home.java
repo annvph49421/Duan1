@@ -1,5 +1,6 @@
 package com.example.duan1.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 
+import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -92,17 +94,36 @@ public class Home extends AppCompatActivity {
             } else if (id == R.id.mbphone) {
                 toolBar.setTitle("Danh sách điện thoại");
                 fragment = DSDienThoaiFragment.newInstance();
+            }else if (id == R.id.mbgiohang) {
+                // Chuyển sang màn hình giỏ hàng
+                Intent intent = new Intent(Home.this, CartActivity.class);
+                startActivity(intent);
+                return true;
             }
-//            else if (id == R.id.mbgiohang) {  // Xử lý khi nhấn vào giỏ hàng
-//                toolBar.setTitle("Giỏ hàng");
-//                fragment  = CartFragment.newInstance();
-//            }
+
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             drawerLayout.closeDrawers();
             return true;
         });
 
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_navigationbottom, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == R.id.mbgiohang) {
+            // Chuyển sang màn hình giỏ hàng
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

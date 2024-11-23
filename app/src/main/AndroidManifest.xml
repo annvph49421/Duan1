@@ -40,11 +40,11 @@
         <activity
             android:name=".ManHinhLogin.ManHinh1"
             android:exported="false" />
+       <!-- <activity
+            android:name=".MainActivity"
+            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChiTietSP.ctsp_samsung"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
