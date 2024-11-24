@@ -1,8 +1,11 @@
 package com.example.duan1.ManHinhLogin;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.duan1.Home.Home;
 import com.example.duan1.R;
 import com.example.duan1.SQLite.DatabaseHelper;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ManHinhLogin extends AppCompatActivity {
     EditText edemail, edpassword;
@@ -24,7 +29,8 @@ public class ManHinhLogin extends AppCompatActivity {
     TextView txtforgotpassword, txtsingup;
     Button btnlogin;
     boolean isPasswordVisible = false;
-
+    private FirebaseAuth mAuth;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,31 +46,31 @@ public class ManHinhLogin extends AppCompatActivity {
         eyeIcon = findViewById(R.id.eyeIcon); // Ánh xạ biểu tượng con mắt
 
         // Xử lý sự kiện nhấn vào "Đăng nhập"
+
+        mAuth = FirebaseAuth.getInstance();
+
+         preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String savedEmail = preferences.getString("email", null);
+        boolean rememberMe = preferences.getBoolean("rememberMe", false);
+
+        if (savedEmail != null && rememberMe) {
+            edemail.setText(savedEmail);
+            cbremember.setChecked(true);
+        }
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String email = edemail.getText().toString().trim();
                 String password = edpassword.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(ManHinhLogin.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    DatabaseHelper dbHelper = new DatabaseHelper(ManHinhLogin.this);
-
-                    // Kiểm tra thông tin đăng nhập với cơ sở dữ liệu
-                    if (dbHelper.checkLogin(email, password)) {
-                        // Đăng nhập thành công
-                        Intent intent = new Intent(ManHinhLogin.this, Home.class);
-                        startActivity(intent);
-                        finish(); // Đóng màn hình Login sau khi đăng nhập thành công
-                    } else {
-                        // Thông báo lỗi khi đăng nhập không thành công
-                        Toast.makeText(ManHinhLogin.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                    }
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(ManHinhLogin.this,"Dien day du thong tin",Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                loginUser(email,password);
             }
         });
-
         // Xử lý sự kiện nhấn vào "Forgot Password"
         txtforgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +108,26 @@ public class ManHinhLogin extends AppCompatActivity {
                 edpassword.setSelection(edpassword.getText().length());
             }
         });
+    }
+
+    private void loginUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (cbremember.isChecked()) {
+                            editor.putString("email", email);
+                            editor.putBoolean("rememberMe", true);
+                        } else {
+                            editor.clear();
+                        }
+                        editor.apply();
+                        Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ManHinhLogin.this, Home.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
