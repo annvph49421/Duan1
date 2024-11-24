@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 
+import com.example.duan1.Fragment.QuanLyDTFragment;
 import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
@@ -68,10 +69,12 @@ public class Home extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
             int id = item.getItemId();
-            if (id == R.id.mbHome
-            ) {
+            if (id == R.id.mHome) {
                 toolBar.setTitle("Trang chủ");
                 fragment =TTCaNhanFragment.newInstance();
+            }else if (id == R.id.mDSDT){
+                toolBar.setTitle("Danh sách điện thoại");
+                fragment= DSDienThoaiFragment.newInstance();
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
@@ -93,7 +96,7 @@ public class Home extends AppCompatActivity {
                 }
             } else if (id == R.id.mbphone) {
                 toolBar.setTitle("Danh sách điện thoại");
-                fragment = DSDienThoaiFragment.newInstance();
+                fragment = QuanLyDTFragment.newInstance();
             }else if (id == R.id.mbgiohang) {
                 // Chuyển sang màn hình giỏ hàng
                 Intent intent = new Intent(Home.this, CartActivity.class);
