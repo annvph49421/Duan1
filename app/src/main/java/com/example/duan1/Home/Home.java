@@ -96,7 +96,7 @@ public class Home extends AppCompatActivity {
                 }
             } else if (id == R.id.mbphone) {
                 toolBar.setTitle("Danh sách điện thoại");
-                fragment = QuanLyDTFragment.newInstance();
+                fragment = DSDienThoaiFragment.newInstance();
             }else if (id == R.id.mbgiohang) {
                 // Chuyển sang màn hình giỏ hàng
                 Intent intent = new Intent(Home.this, CartActivity.class);

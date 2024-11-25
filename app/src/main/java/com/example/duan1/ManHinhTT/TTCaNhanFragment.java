@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.duan1.ManHinhLogin.ManHinhLogin;
 import com.example.duan1.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +23,7 @@ import com.example.duan1.R;
  * create an instance of this fragment.
  */
 public class TTCaNhanFragment extends Fragment {
-
+    private FirebaseAuth auth;
 
     public TTCaNhanFragment() {
         // Required empty public constructor
@@ -50,7 +52,17 @@ public class TTCaNhanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         TextView tvLogout = view.findViewById(R.id.tvLogout);
         TextView tvTTCN = view.findViewById(R.id.tvTTCN);
+        TextView tvTen = view.findViewById(R.id.tvTen);
 
+        auth = FirebaseAuth.getInstance();
+
+
+        FirebaseUser user = auth.getCurrentUser();
+        if(user != null){
+            tvTen.setText(user.getDisplayName());
+        }else{
+            tvTen.setText("Name: ");
+        }
         //Thông tin cá nhân
         tvTTCN.setOnClickListener(new View.OnClickListener() {
             @Override
