@@ -23,7 +23,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#C4F3FE"
+
             android:layout_marginTop="33dp"
             />
 
