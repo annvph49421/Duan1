@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duan1.R;
 import com.example.duan1.SQLite.DatabaseHelper;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class ManHinhSignUp extends AppCompatActivity {
 
@@ -66,21 +67,36 @@ public class ManHinhSignUp extends AppCompatActivity {
 
 
     }
-    private void registerUser(String email, String password){
+    private void registerUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(this,"Dang ky thanh cong",Toast.LENGTH_SHORT).show();
-                        Log.d("SignUp", "User ID: " + (user != null ? user.getUid() : "null"));
-                        Intent intent = new Intent(ManHinhSignUp.this, ManHinhLogin.class);
-                        startActivity(intent);
+                        if (user != null) {
+                            // Lấy tên từ EditText
+                            String name = nameInput.getText().toString().trim();
 
-                    }else{
-                        Toast.makeText(this, "Registration Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            // Cập nhật thông tin hồ sơ người dùng
+                            user.updateProfile(new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(name) // Lưu tên vào hồ sơ người dùng
+                                            .build())
+                                    .addOnCompleteListener(updateTask -> {
+                                        if (updateTask.isSuccessful()) {
+                                            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                            Log.d("SignUp", "Tên người dùng: " + user.getDisplayName());
+                                            Intent intent = new Intent(ManHinhSignUp.this, ManHinhLogin.class);
+                                            startActivity(intent);
+                                            finish(); // Kết thúc màn hình đăng ký
+                                        } else {
+                                            Toast.makeText(this, "Cập nhật tên thất bại", Toast.LENGTH_SHORT).show();
+                                            Log.e("SignUp", "Error updating profile: ", updateTask.getException());
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("SignUp", "Error: ", task.getException());
                     }
                 });
-
     }
 }

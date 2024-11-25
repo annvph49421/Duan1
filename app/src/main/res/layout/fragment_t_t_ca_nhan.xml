@@ -90,6 +90,7 @@
                 android:layout_gravity="start"/>
 
             <TextView
+                android:id="@+id/tvTTCN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thông tin cá nhân"
@@ -372,6 +373,7 @@
                 android:src="@drawable/dx2"/>
 
             <TextView
+                android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng xuất"
