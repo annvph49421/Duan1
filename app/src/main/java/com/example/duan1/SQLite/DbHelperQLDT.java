@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelperQLDT extends SQLiteOpenHelper {
     public DbHelperQLDT(Context context){
-        super(context, "DSDT", null, 1);
+        super(context, "QLDT", null, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
