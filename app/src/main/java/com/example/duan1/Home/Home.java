@@ -96,6 +96,9 @@ public class Home extends AppCompatActivity {
             }else if (id == R.id.mDSDT){
                 toolBar.setTitle("Danh sách điện thoại");
                 fragment= DSDienThoaiFragment.newInstance();
+            }else if(id == R.id.mQLDT){
+                toolBar.setTitle("Quản lý điện thoại");
+                fragment= QuanLyDTFragment.newInstance();
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
