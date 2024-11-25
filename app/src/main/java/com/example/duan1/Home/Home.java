@@ -2,6 +2,8 @@ package com.example.duan1.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBar;
@@ -23,6 +25,8 @@ import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity {
 
@@ -51,6 +55,23 @@ public class Home extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String name = user.getDisplayName();  // Tên người dùng
+            String email = user.getEmail();  // Email người dùng
+
+            // Nếu người dùng chưa cập nhật tên, ta có thể hiển thị email thay thế
+            if (name == null) {
+                name = email;
+            }
+
+            // Cập nhật thông tin vào Navigation Drawer
+            updateNavigationHeader(name, email);
+        }
+
+
+
+
 
         setSupportActionBar(toolBar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, 0, 0);
@@ -71,7 +92,7 @@ public class Home extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.mHome) {
                 toolBar.setTitle("Trang chủ");
-                fragment =TTCaNhanFragment.newInstance();
+                fragment =HomeFragment.newInstance();
             }else if (id == R.id.mDSDT){
                 toolBar.setTitle("Danh sách điện thoại");
                 fragment= DSDienThoaiFragment.newInstance();
@@ -131,9 +152,16 @@ public class Home extends AppCompatActivity {
 
 
 
+    private void updateNavigationHeader(String name, String email) {
+        // Lấy NavigationView và header view
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
 
+        // Cập nhật tên và email vào các TextView
+        TextView navHeaderName = headerView.findViewById(R.id.tvName);
+        TextView navHeaderEmail = headerView.findViewById(R.id.tvMail);
 
-
-
-
+        navHeaderName.setText(name);
+        navHeaderEmail.setText(email);
+    }
 }

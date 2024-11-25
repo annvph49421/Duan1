@@ -1,5 +1,7 @@
 package com.example.duan1.ManHinhLogin;
 
+
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.duan1.R;
 import com.example.duan1.SQLite.DatabaseHelper;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ManHinhSignUp extends AppCompatActivity {
 
@@ -99,4 +103,6 @@ public class ManHinhSignUp extends AppCompatActivity {
                     }
                 });
     }
+
+
 }
