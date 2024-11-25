@@ -3,11 +3,18 @@ package com.example.duan1.Models;
 public class QLDT {
     private int madt;
     private String tendt;
-    private Double sao;
+    private String sao;
     private String dungluong;
     private int gia;
 
-    public QLDT(int madt, String tendt, Double sao, String dungluong, int gia) {
+    public QLDT(String tendt, String sao, String dungluong, int gia) {
+        this.tendt = tendt;
+        this.sao = sao;
+        this.dungluong = dungluong;
+        this.gia = gia;
+    }
+
+    public QLDT(int madt, String tendt, String sao, String dungluong, int gia) {
         this.madt = madt;
         this.tendt = tendt;
         this.sao = sao;
@@ -31,11 +38,11 @@ public class QLDT {
         this.tendt = tendt;
     }
 
-    public Double getSao() {
+    public String getSao() {
         return sao;
     }
 
-    public void setSao(Double sao) {
+    public void setSao(String sao) {
         this.sao = sao;
     }
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#C4F3FE">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sửa điện thoại"
+            android:textColor="#FF0000"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/edt_ten_qldtS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Tên điện thoại"
+            android:textAlignment="center"
+            />
+
+        <EditText
+            android:id="@+id/edt_sao_qldtS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Đánh giá"
+            android:textAlignment="center"
+            />
+
+        <EditText
+            android:id="@+id/edt_dunglg_qldtS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Dung lượng"
+            android:textAlignment="center"
+            />
+
+        <EditText
+            android:id="@+id/edt_gia_qldtS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Giá"
+            android:textAlignment="center"
+            />
+
+        <Button
+            android:id="@+id/btn_update_qldt"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Sửa"
+            android:layout_marginLeft="70dp"
+            android:backgroundTint="#008CF9"
+            android:textColor="@color/white"
+
+            />
+
+        <Button
+            android:id="@+id/btn_cancel_qldtS"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:layout_marginLeft="70dp"
+            android:backgroundTint="#686363"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/white"
+            />
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
