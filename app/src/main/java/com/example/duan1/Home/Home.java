@@ -21,6 +21,7 @@ import com.example.duan1.Fragment.HomeFragment;
 
 import com.example.duan1.Fragment.QuanLyDTFragment;
 import com.example.duan1.GioHang.CartActivity;
+import com.example.duan1.ManHinhLogin.ManHinhLogin;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,12 +29,23 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Home extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolBar;
     NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
+
+    //Email của admin
+    private List<String> adminEmails = Arrays.asList(
+            "admin@gmail.com", // Email admin đầu tiên
+            "superadmin@example.com" // Email admin thứ hai, nếu có
+    );
+    FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +57,33 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        navigationView = findViewById(R.id.navigationView);
+
 
         //annvph49421@gmail.com
         //11062005
+        //An chuc nang dua tren vai tro
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String email = user.getEmail();
+            if (email != null && adminEmails.contains(email)) {
+                // Người dùng là admin
+                enableAdminFeatures();
+            } else {
+                // Người dùng là user
+                disableAdminFeatures();
+            }
+        }
+
+
 
         //ánh xạ
         drawerLayout= findViewById(R.id.main);
         toolBar= findViewById(R.id.toolBar);
-        navigationView = findViewById(R.id.navigationView);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             String name = user.getDisplayName();  // Tên người dùng
             String email = user.getEmail();  // Email người dùng
@@ -101,6 +129,7 @@ public class Home extends AppCompatActivity {
                 fragment= QuanLyDTFragment.newInstance();
             }
 
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             drawerLayout.closeDrawers();
             return true;
@@ -135,6 +164,8 @@ public class Home extends AppCompatActivity {
         });
 
 
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -151,6 +182,20 @@ public class Home extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    //Cac tinh nang cua tung vai tro
+    private void enableAdminFeatures() {
+        navigationView.getMenu().findItem(R.id.mQLDT).setVisible(true); // Quản lý điện thoại chỉ hiển thị cho admin
+    }
+
+    private void disableAdminFeatures() {
+        navigationView.getMenu().findItem(R.id.mQLDT).setVisible(false);
+        navigationView.getMenu().findItem(R.id.mQLDH).setVisible(false);
+        navigationView.getMenu().findItem(R.id.mTK).setVisible(false);
+        // Ẩn Quản lý điện thoại
     }
 
 
