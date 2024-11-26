@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan1.ChiTietSP.ctsp_oppo; // Màn hình chi tiết sản phẩm
+import com.example.duan1.ChiTietSP.ctsp_ip; // Màn hình chi tiết sản phẩm
 import com.example.duan1.Models.PhoneModels;
 import com.example.duan1.R;
 
@@ -20,16 +20,16 @@ import java.util.List;
 public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHolder> {
 
     private List<PhoneModels> phoneModelsList;
-    private Context context; // Thêm context để mở màn hình chi tiết
+    private Context context;
 
-    public PhoneAdapter(List<PhoneModels> phoneModelsList) {
-        this.context = context;
+    public PhoneAdapter(Context context, List<PhoneModels> phoneModelsList) {
+        this.context = context; // Sửa lỗi gán context
         this.phoneModelsList = phoneModelsList;
     }
 
     @NonNull
     @Override
-    public PhoneAdapter.PhoneViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PhoneViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phone, parent, false);
         return new PhoneViewHolder(view);
     }
@@ -39,21 +39,17 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHol
         PhoneModels phone = phoneModelsList.get(position);
         holder.tvNamePhone.setText(phone.getName());
         holder.tvRating.setText(String.valueOf(phone.getRating()) + "★");
-        holder.tvPrice.setText(phone.getPrice() + "VNĐ");
+        holder.tvPrice.setText(phone.getPrice());
         holder.imgPhone.setImageResource(phone.getImage());
 
-        // Thiết lập sự kiện click cho mỗi sản phẩm
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển đến màn hình chi tiết sản phẩm và truyền dữ liệu
-                Intent intent = new Intent(context, ctsp_oppo.class); // Màn hình chi tiết
-                // Truyền thông tin sản phẩm vào Intent
-                intent.putExtra("product_name", phone.getName());
-                intent.putExtra("product_price", phone.getPrice());
-                intent.putExtra("product_image", phone.getImage());
-                context.startActivity(intent);
-            }
+        // Xử lý click vào từng item
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ctsp_ip.class); // Màn hình chi tiết sản phẩm
+            // Truyền dữ liệu sản phẩm qua Intent
+            intent.putExtra("product_name", phone.getName());
+            intent.putExtra("product_price", phone.getPrice());
+            intent.putExtra("product_image", phone.getImage());
+            context.startActivity(intent);
         });
     }
 

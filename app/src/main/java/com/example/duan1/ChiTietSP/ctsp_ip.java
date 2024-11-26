@@ -54,7 +54,7 @@ public class ctsp_ip extends AppCompatActivity {
 
 
         btnBack_ip = findViewById(R.id.btnBack_ip);
-        tvSoluong_ip = findViewById(R.id.tvSoluong_ip);
+        tvSoluong_ip = findViewById(R.id.tvSoluong_ip); 
         tvTongTien_ip = findViewById(R.id.tvTongTien_ip);
         btnCong_ip = findViewById(R.id.btnCong_ip);
         btnTru_ip = findViewById(R.id.btnTru_ip);

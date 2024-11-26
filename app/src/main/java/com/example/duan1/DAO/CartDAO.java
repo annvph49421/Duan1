@@ -80,6 +80,29 @@ public class CartDAO {private CartDatabaseHelper dbHelper;
         db.delete(CartDatabaseHelper.TABLE_CART, null, null);
         db.close();
     }
+    // Phương thức thêm địa chỉ vào cơ sở dữ liệu
+    public void addAddress(String address) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CartDatabaseHelper.COLUMN_ADDRESS, address);
+        db.insert(CartDatabaseHelper.TABLE_ADDRESS, null, values);
+        db.close();
+    }
+
+    // Phương thức lấy địa chỉ từ cơ sở dữ liệu
+    public String getAddress() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ADDRESS, null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            String address = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ADDRESS));
+            cursor.close();
+            db.close();
+            return address;
+        } else {
+            db.close();
+            return null;
+        }
+    }
 
 
 

@@ -133,6 +133,9 @@ public class Home extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             drawerLayout.closeDrawers();
             return true;
+
+
+
         });
 
 
@@ -156,9 +159,12 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            if (fragment != null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit();
+            }
             drawerLayout.closeDrawers();
             return true;
         });

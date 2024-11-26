@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.duan1.Adapter.ProductAdapter;
+import com.example.duan1.ChinhSua.ItemDecoration;
 import com.example.duan1.Models.ProductModels;
 import com.example.duan1.R;
 
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment {
         productAdapter = new ProductAdapter(productList);
         recyclerView.setAdapter(productAdapter);
         //Thêm khoảng cách giữa các item theo hàng doc
-//        recyclerView.addItemDecoration(new ItemDecoration(4));
+       // recyclerView.addItemDecoration(new ItemDecoration(4));
 
 
 

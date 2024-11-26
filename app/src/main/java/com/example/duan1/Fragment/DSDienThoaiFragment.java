@@ -53,7 +53,7 @@ public class DSDienThoaiFragment extends Fragment {
         PhoneRecycleView = view.findViewById(R.id.PhoneRecycleView);
         PhoneRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         phoneModelsList = getListPhone();
-        phoneAdapter = new PhoneAdapter(phoneModelsList);
+        phoneAdapter = new PhoneAdapter(getContext(),phoneModelsList);
         PhoneRecycleView.setAdapter(phoneAdapter);
 
         return view;
