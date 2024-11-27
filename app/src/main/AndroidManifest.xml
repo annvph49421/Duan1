@@ -50,6 +50,8 @@
             android:name=".ManHinhLogin.ManHinh1"
             android:exported="false" />
         <activity android:name=".ChiTietSP.ctsp_ip" />
+
+
         <!--
  <activity
             android:name=".MainActivity"

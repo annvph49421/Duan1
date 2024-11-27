@@ -16,7 +16,7 @@
             android:id="@+id/btnBack_ip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/back"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             />
@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="cart"
-            android:layout_marginTop="5dp"
+            android:text="Cart"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:textSize="24dp"
             android:textColor="@color/black"
@@ -45,7 +45,9 @@
         android:id="@+id/btnAddAddress"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="220dp"
         android:src="@drawable/ic_cong"
+        android:layout_marginLeft="24dp"
         android:visibility="visible" />
 
     <!-- Hiển thị thông tin địa chỉ nếu đã thêm -->
@@ -53,7 +55,7 @@
         android:id="@+id/addressTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="35dp"
         android:text="Thêm địa chỉ nhận hàng"
         android:visibility="visible"
         android:textColor="@color/black"
@@ -63,15 +65,17 @@
         android:id="@+id/totalPriceTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+
         android:text="Tổng cộng: 0đ"
-        android:textSize="18sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
     <Button
         android:id="@+id/btndathang"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:padding="20dp"
         android:text="Đặt Hàng"
