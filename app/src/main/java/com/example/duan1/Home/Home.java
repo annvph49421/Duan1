@@ -37,7 +37,8 @@ public class Home extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolBar;
     NavigationView navigationView;
-    private BottomNavigationView bottomNavigationView;
+     BottomNavigationView bottomNavigationView;
+    private boolean isAdmin = false;
 
     //Email của admin
     private List<String> adminEmails = Arrays.asList(
@@ -58,7 +59,7 @@ public class Home extends AppCompatActivity {
             return insets;
         });
         navigationView = findViewById(R.id.navigationView);
-
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         //annvph49421@gmail.com
         //11062005
@@ -75,13 +76,22 @@ public class Home extends AppCompatActivity {
             }
         }
 
+        if (user != null) {
+            String email = user.getEmail();
+            if (email != null && adminEmails.contains(email)) {
+                isAdmin = true; // Đánh dấu người dùng là admin
+            } else {
+                isAdmin = false; // Người dùng là user
+            }
+        }
+
 
 
         //ánh xạ
         drawerLayout= findViewById(R.id.main);
         toolBar= findViewById(R.id.toolBar);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
 
 
         if (user != null) {
@@ -142,23 +152,41 @@ public class Home extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
             int id = item.getItemId();
-            if (id == R.id.mbuser) {
-                toolBar.setTitle("Thông tin cá nhân");
-                fragment =TTCaNhanFragment.newInstance();
-            } else if (id == R.id.mbHome) {
-                {
-                toolBar.setTitle("Trang chủ");
-                fragment = HomeFragment.newInstance();
+            if (isAdmin) {
+                // Nếu là admin
+                if (id == R.id.mbuser) {
+                    toolBar.setTitle("Thông tin cá nhân");
+                    fragment = TTCaNhanFragment.newInstance();
+                } else if (id == R.id.mbHome) {
+                    toolBar.setTitle("Trang chủ");
+                    fragment = HomeFragment.newInstance();
+                } else if (id == R.id.mbphone) {
+                    toolBar.setTitle("Danh sách điện thoại");
+                    fragment =  QuanLyDTFragment.newInstance();
+                } else if (id == R.id.mbgiohang) {
+                    Intent intent = new Intent(Home.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
                 }
-            } else if (id == R.id.mbphone) {
-                toolBar.setTitle("Danh sách điện thoại");
-                fragment = DSDienThoaiFragment.newInstance();
-            }else if (id == R.id.mbgiohang) {
-                // Chuyển sang màn hình giỏ hàng
-                Intent intent = new Intent(Home.this, CartActivity.class);
-                startActivity(intent);
-                return true;
+            } else {
+                // Nếu là user
+                if (id == R.id.mbuser) {
+                    toolBar.setTitle("Thông tin cá nhân");
+                    fragment = TTCaNhanFragment.newInstance();
+                } else if (id == R.id.mbHome) {
+                    toolBar.setTitle("Trang chủ");
+                    fragment = HomeFragment.newInstance();
+                } else if (id == R.id.mbphone) {
+                    toolBar.setTitle("Danh sách điện thoại");
+                    fragment = DSDienThoaiFragment.newInstance();
+                } else if (id == R.id.mbgiohang) {
+                    Intent intent = new Intent(Home.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
             }
+
+            // Thay đổi Fragment nếu fragment không null
             if (fragment != null) {
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -194,7 +222,9 @@ public class Home extends AppCompatActivity {
 
     //Cac tinh nang cua tung vai tro
     private void enableAdminFeatures() {
-        navigationView.getMenu().findItem(R.id.mQLDT).setVisible(true); // Quản lý điện thoại chỉ hiển thị cho admin
+        navigationView.getMenu().findItem(R.id.mQLDT).setVisible(true);
+        bottomNavigationView.getMenu().findItem(R.id.mbgiohang).setVisible(false);
+        // Quản lý điện thoại chỉ hiển thị cho admin
     }
 
     private void disableAdminFeatures() {

@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:orientation="horizontal"
         >
         <ImageView
@@ -37,7 +38,7 @@
         android:id="@+id/cartListView"
         android:layout_width="match_parent"
         android:layout_height="388dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="20dp" />
 
 
     <!-- Hiển thị icon thêm địa chỉ nếu chưa có -->
