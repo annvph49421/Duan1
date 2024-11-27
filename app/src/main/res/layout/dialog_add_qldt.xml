@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        
         android:orientation="vertical"
         android:background="#C4F3FE">
 
@@ -62,7 +63,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Thêm"
-            android:layout_marginLeft="70dp"
+            android:layout_gravity="center_horizontal"
             android:backgroundTint="#008CF9"
             android:textColor="@color/white"
 
@@ -73,7 +74,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Hủy"
-            android:layout_marginLeft="70dp"
+            android:layout_gravity="center_horizontal"
             android:backgroundTint="#686363"
             android:layout_marginBottom="15dp"
             android:textColor="@color/white"

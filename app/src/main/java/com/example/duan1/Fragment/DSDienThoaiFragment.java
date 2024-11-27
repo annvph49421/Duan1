@@ -67,6 +67,8 @@ public class DSDienThoaiFragment extends Fragment {
         phoneModelsList.add(new PhoneModels(R.drawable.product_oppo12_1,"OPPO Reno12 256GB",4.7,"12.290.000đ"));
         phoneModelsList.add(new PhoneModels(R.drawable.product_samsung_1,"Samsung Galaxy S24 Ultra",5.0,"29.990.000đ"));
         phoneModelsList.add(new PhoneModels(R.drawable.product_vivo_1,"Vivo V30E 256GB",4.5,"9.490.000đ")) ;
+        phoneModelsList.add(new PhoneModels(R.drawable.bg_iphone14,"Redmin note 12 Turbo",5,"29.490.000đ"));
+
         return phoneModelsList;
 
 

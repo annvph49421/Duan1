@@ -18,6 +18,7 @@ import com.example.duan1.Home.Home;
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
@@ -109,7 +110,12 @@ public class CartActivity extends AppCompatActivity {
         for (CartItem item : cartItems) {
             totalPrice += item.getTotalPrice();  // Tính tổng giá trị giỏ hàng
         }
-        totalPriceTextView.setText("Tổng cộng: " + totalPrice + "đ");  // Hiển thị tổng giá trị
+        totalPriceTextView.setText("Tổng cộng: " + formatCurrency(totalPrice));  // Hiển thị tổng giá trị
+    }
+
+    private String formatCurrency(double amount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+        return decimalFormat.format(amount);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -125,4 +131,6 @@ public class CartActivity extends AppCompatActivity {
             addressTextView.setText("Tên: " + name + "\nĐịa chỉ: " + address + "\nSĐT: " + phone);
         }
     }
+
+
 }

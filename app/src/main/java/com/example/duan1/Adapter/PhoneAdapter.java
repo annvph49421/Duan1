@@ -11,9 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1.ChiTietSP.ctsp_all;
 import com.example.duan1.ChiTietSP.ctsp_ip; // Màn hình chi tiết sản phẩm
 import com.example.duan1.Models.PhoneModels;
 import com.example.duan1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,11 +46,12 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHol
 
         // Xử lý click vào từng item
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ctsp_ip.class); // Màn hình chi tiết sản phẩm
+            Intent intent = new Intent(context, ctsp_all.class); // Màn hình chi tiết sản phẩm
             // Truyền dữ liệu sản phẩm qua Intent
-            intent.putExtra("product_name", phone.getName());
-            intent.putExtra("product_price", phone.getPrice());
-            intent.putExtra("product_image", phone.getImage());
+            intent.putExtra("name", phone.getName());
+            intent.putExtra(("rating"), String.valueOf(phone.getRating()) + "★");
+            intent.putExtra("price", phone.getPrice());
+            intent.putExtra("imageUrl", phone.getImage());
             context.startActivity(intent);
         });
     }

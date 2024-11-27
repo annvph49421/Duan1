@@ -17,6 +17,7 @@ import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapter extends ArrayAdapter<CartItem> {
@@ -40,6 +41,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
 
         final CartItem item = getItem(position);
 
+
+
         TextView productName = convertView.findViewById(R.id.productName);
         TextView quantity = convertView.findViewById(R.id.quantity);
         TextView price = convertView.findViewById(R.id.price);
@@ -47,10 +50,13 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         ImageView increaseQuantity = convertView.findViewById(R.id.increaseQuantity);
         ImageView decreaseQuantity = convertView.findViewById(R.id.decreaseQuantity);
         ImageView removeProduct = convertView.findViewById(R.id.removeProduct);
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+        String formattedPrice = decimalFormat.format(item.getTotalPrice());
+
 
         productName.setText(item.getProductName());
         quantity.setText("Số lượng: " + item.getQuantity());
-        price.setText("Giá: " + item.getTotalPrice() + "đ");
+        price.setText("Giá: " + formattedPrice);
         productImage.setImageResource(item.getImageResId());
 
         // Tăng số lượng
@@ -112,4 +118,6 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
 
         return convertView;
     }
+
+
 }
