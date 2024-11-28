@@ -23,7 +23,7 @@ import com.example.duan1.SQLite.CartDatabaseHelper;
 
 
 public class OrderConfirmationActivity extends AppCompatActivity {
-    private TextView tvAddress, tvProducts, tvTotalPrice, tvOrderStatus;
+    private TextView tvSoLuong, tvProducts, tvTotalPrice, tvOrderStatus;
     private CartDatabaseHelper dbHelper;
 
     @Override
@@ -32,11 +32,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_confirmation);
 
         // Ánh xạ view
-        tvAddress = findViewById(R.id.tvAddress);
+
         tvProducts = findViewById(R.id.tvProducts);
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         tvOrderStatus = findViewById(R.id.tvOrderStatus);
-
+        tvSoLuong = findViewById(R.id.quantity);
         // Kết nối Database
         dbHelper = new CartDatabaseHelper(this);
 
@@ -57,7 +57,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             String status = orderCursor.getString(orderCursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_STATUS));
 
             // Gán dữ liệu vào giao diện
-            tvAddress.setText("Địa chỉ: " + address);
+//            tvAddress.setText("Địa chỉ: " + address);
             tvTotalPrice.setText("Tổng cộng: " + totalPrice + "đ");
             tvOrderStatus.setText("Trạng thái: " + status);
         }
