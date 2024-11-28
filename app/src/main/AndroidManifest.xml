@@ -22,11 +22,13 @@
             android:name=".ManHinhTT.TTCaNhan2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Home.Home"
             android:exported="false" />
         <activity
             android:name=".GioHang.CartActivity"
             android:exported="false" />
+        <activity android:name=".GioHang.OrderConfirmationActivity"
+            android:exported="false"/>
         <activity
             android:name=".Models.CartItem"
             android:exported="false"
@@ -56,7 +58,7 @@
             android:exported="false" />
         -->
         <activity
-            android:name=".Home.Home"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

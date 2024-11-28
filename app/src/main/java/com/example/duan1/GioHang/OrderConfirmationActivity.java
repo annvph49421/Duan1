@@ -81,22 +81,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         tvProducts.setText("Sản phẩm:\n" + productDetails.toString());
     }
-//    private void placeOrder() {
-//        SQLiteDatabase db = dbHelper.getWritableDatabase();
-//
-//        // Thêm đơn hàng vào bảng orders
-//        ContentValues values = new ContentValues();
-//        values.put(CartDatabaseHelper.COLUMN_ORDER_ADDRESS, "123 Nguyễn Văn Cừ, Hà Nội");
-//        values.put(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE, 13000000);
-//        values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, "Chờ phê duyệt");
-//
-//        long orderId = db.insert(CartDatabaseHelper.TABLE_ORDERS, null, values);
-//
-//        if (orderId != -1) {
-//            Toast.makeText(this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Đặt hàng thất bại!", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    private void placeOrder() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+    }
 
 }

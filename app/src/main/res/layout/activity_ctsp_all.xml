@@ -168,25 +168,22 @@
         />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="220dp"
-        >
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text="Tổng tiền:"
             android:textColor="#0B0A0A"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:textStyle="bold"
             android:textSize="24dp"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvTongTien"
@@ -203,24 +200,22 @@
             android:id="@+id/btnTru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btntru"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/khungdau"
             android:padding="1dp"
-            />
+            android:src="@drawable/btntru" />
 
         <TextView
             android:id="@+id/tvSoluong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
             android:text=""
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/btnCong"
