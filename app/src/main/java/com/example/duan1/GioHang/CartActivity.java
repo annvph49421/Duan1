@@ -19,6 +19,7 @@ import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 import com.example.duan1.SQLite.CartDatabaseHelper;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
@@ -136,9 +137,9 @@ public class CartActivity extends AppCompatActivity {
     public void updateTotalPrice() {
         int totalPrice = 0;
         for (CartItem item : cartItems) {
-            totalPrice += item.getTotalPrice();  // Tính tổng giá trị giỏ hàng
+            totalPrice += item.getPrice();  // Tính tổng giá trị giỏ hàng
         }
-        totalPriceTextView.setText("Tổng cộng: " + totalPrice + "đ");  // Hiển thị tổng giá trị
+        totalPriceTextView.setText("Tổng cộng: " + formatGia(totalPrice) + "đ");  // Hiển thị tổng giá trị
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -199,6 +200,9 @@ private String getProductDetails() {
 }
 
 
-
+    private String formatGia(double gia) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+        return decimalFormat.format(gia);
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.example.duan1.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1.ChiTietSP.ctsp_all;
 import com.example.duan1.Models.ProductModels;
 import com.example.duan1.R;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-
+    private Context context;
     private List<ProductModels> productModels;
-    public ProductAdapter(List<ProductModels> productModels){
+    public ProductAdapter(Context context, List<ProductModels> productModels){
         this.productModels = productModels;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -30,10 +34,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         ProductModels product = productModels.get(position);
-        holder.AnhSanPham.setImageResource(product.getImg());
         holder.TenSanPham.setText(product.getName());
         holder.GiaSanPham.setText(product.getPrice());
+        holder.AnhSanPham.setImageResource(product.getImg());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ctsp_all.class); // Màn hình chi tiết sản phẩm
+            // Truyền dữ liệu sản phẩm qua Intent
+            intent.putExtra("name", product.getName());
+            intent.putExtra(("rating"), String.valueOf(product.getRating()) + "★");
+            intent.putExtra("moTa", product.getMoTa());
+            intent.putExtra("price", product.getPrice());
+            intent.putExtra("imageUrl", product.getImg());
+            context.startActivity(intent);
+        });
     }
+
 
 
 

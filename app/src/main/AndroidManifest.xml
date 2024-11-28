@@ -22,7 +22,7 @@
             android:name=".ManHinhTT.TTCaNhan2"
             android:exported="false" />
         <activity
-            android:name=".Home.Home"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".GioHang.CartActivity"
@@ -58,8 +58,9 @@
             android:exported="false" />
         -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Home.Home"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

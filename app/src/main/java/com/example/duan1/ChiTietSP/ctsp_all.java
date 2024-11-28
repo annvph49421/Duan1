@@ -29,7 +29,9 @@ public class ctsp_all extends AppCompatActivity {
         TextView tvSoluong, tvTongTien,tvName,tvPrice,tvPhoneRating,tvMota;
         Button btnAdd;
         private int soLuong = 1; // Số lượng mặc định là 1
-        private double giaSanPham = 0; // Giá sản phẩm
+        private double giaSanPham = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +59,14 @@ public class ctsp_all extends AppCompatActivity {
 
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ctsp_all.this, DSDienThoaiFragment.class);
-                startActivity(intent);
-            }
-        });
+
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(ctsp_all.this, DSDienThoaiFragment.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         Intent intent = getIntent();
