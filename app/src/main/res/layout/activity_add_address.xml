@@ -5,31 +5,100 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/edtName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/btnBack_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="24dp"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Họ và tên"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"/>
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
         android:hint="Tên người nhận"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/thiet_ke"
+        android:padding="12dp"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ nhận hàng"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/edtAddress"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:hint="Địa chỉ nhận hàng"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/thiet_ke"
+        android:padding="12dp"
+        android:inputType="textPostalAddress"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Địa chỉ"
-        android:inputType="textPostalAddress" />
+        android:text="SDT"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/edtPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
         android:hint="Số điện thoại"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/thiet_ke"
+        android:padding="12dp"
         android:inputType="phone" />
 
     <Button
         android:id="@+id/btnSaveAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lưu" />
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:text="Lưu"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/radius_button"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:padding="12dp"/>
 
 </LinearLayout>

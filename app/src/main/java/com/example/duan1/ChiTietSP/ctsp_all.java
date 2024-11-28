@@ -15,7 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.duan1.DAO.CartDAO;
+import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.GioHang.CartActivity;
+import com.example.duan1.MainActivity;
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 
@@ -23,8 +25,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 
 public class ctsp_all extends AppCompatActivity {
-        ImageView btnBack_ip, btnCong, btnTru, btnNext_ip, img_ct_ip, btnPrev_ip,img_ct;
-        TextView tvSoluong, tvTongTien,tvName,tvPrice,tvPhoneRating;
+        ImageView btnBack, btnCong, btnTru,img_ct;
+        TextView tvSoluong, tvTongTien,tvName,tvPrice,tvPhoneRating,tvMota;
         Button btnAdd;
         private int soLuong = 1; // Số lượng mặc định là 1
         private double giaSanPham = 0; // Giá sản phẩm
@@ -49,21 +51,35 @@ public class ctsp_all extends AppCompatActivity {
         btnTru = findViewById(R.id.btnTru);
         btnCong = findViewById(R.id.btnCong);
         btnAdd = findViewById(R.id.btnAdd);
+        btnBack = findViewById(R.id.btnBack);
+        tvMota = findViewById(R.id.tvMoTa);
 
+
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ctsp_all.this, DSDienThoaiFragment.class);
+                startActivity(intent);
+            }
+        });
 
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String rating = intent.getStringExtra("rating");
+        String moTa = intent.getStringExtra("moTa");
         String priceStr = intent.getStringExtra("price");
         int imageResource = intent.getIntExtra("imageUrl", 0);
 
 
 
-
+        tvMota.setText(moTa);
         tvName.setText(name);
         tvPhoneRating.setText(rating);
         tvPrice.setText(priceStr);
+
         img_ct.setImageResource(imageResource);
 
 
@@ -140,6 +156,7 @@ public class ctsp_all extends AppCompatActivity {
         tvTongTien.setText(formatGia(tongTien));
         tvSoluong.setText(String.valueOf(soLuong));
     }
+
 
 
 

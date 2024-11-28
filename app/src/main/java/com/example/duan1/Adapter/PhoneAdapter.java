@@ -50,6 +50,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHol
             // Truyền dữ liệu sản phẩm qua Intent
             intent.putExtra("name", phone.getName());
             intent.putExtra(("rating"), String.valueOf(phone.getRating()) + "★");
+            intent.putExtra("moTa", phone.getMoTa());
             intent.putExtra("price", phone.getPrice());
             intent.putExtra("imageUrl", phone.getImage());
             context.startActivity(intent);

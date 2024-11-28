@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Wallet.Wallet_screen">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#F5F5F5"
+        app:cardCornerRadius="16dp"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/profile11"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tvTenVi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh Bình"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="60dp"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số dư:"
+            android:layout_marginTop="180dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500.000.000 VND"
+            android:layout_marginTop="230dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"/>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
