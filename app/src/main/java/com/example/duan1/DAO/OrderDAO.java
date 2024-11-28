@@ -21,17 +21,19 @@ public class OrderDAO {
         values.put("address", order.getAddress());
         values.put("totalPrice", order.getTotalPrice());
         values.put("status", order.getStatus());
+        // Thêm đơn hàng vào cơ sở dữ liệu
+
 
         long orderId = db.insert("orders", null, values); // Lưu đơn hàng
 
-        for (CartItem item : order.getCartItems()) {
-            ContentValues itemValues = new ContentValues();
-            itemValues.put("orderId", orderId);
-            itemValues.put("productName", item.getProductName());
-            itemValues.put("quantity", item.getQuantity());
-            itemValues.put("price", item.getPrice());
-            db.insert("order_items", null, itemValues); // Lưu sản phẩm trong đơn hàng
-        }
+//        for (Order item : order.getCartItems()) {
+//            ContentValues itemValues = new ContentValues();
+//            itemValues.put("orderId", orderId);
+//            itemValues.put("productName", item.getProductName());
+//            itemValues.put("quantity", item.getQuantity());
+//            itemValues.put("price", item.getPrice());
+//            db.insert("order_items", null, itemValues); // Lưu sản phẩm trong đơn hàng
+//        }
     }
 }
 

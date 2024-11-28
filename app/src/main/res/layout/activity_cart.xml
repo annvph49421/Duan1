@@ -48,19 +48,30 @@
         android:src="@drawable/ic_cong"
         android:visibility="visible" />
 
-    <!-- Hiển thị thông tin địa chỉ nếu đã thêm -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/addressTextView"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Thêm địa chỉ nhận hàng"
         android:visibility="visible"
         android:textColor="@color/black"
         android:textSize="16sp" />
+    <ImageView
+        android:id="@+id/btnsua"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/img_12"/>
+
+</LinearLayout>
+    <!-- Hiển thị thông tin địa chỉ nếu đã thêm -->
+
 
     <TextView
-        android:id="@+id/totalPriceTextView"
+        android:id="@+id/tvTotalPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"

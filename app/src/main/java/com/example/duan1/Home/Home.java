@@ -21,6 +21,7 @@ import com.example.duan1.Fragment.HomeFragment;
 
 import com.example.duan1.Fragment.QuanLyDTFragment;
 import com.example.duan1.GioHang.CartActivity;
+import com.example.duan1.GioHang.OrderConfirmationActivity;
 import com.example.duan1.ManHinhLogin.ManHinhLogin;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
@@ -158,6 +159,11 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, CartActivity.class);
                 startActivity(intent);
                 return true;
+            } else if (id == R.id.mbvi) {
+                Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
+                startActivity(intent);
+                return true;
+
             }
             if (fragment != null) {
                 getSupportFragmentManager()
@@ -186,6 +192,13 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
+        } else if (item.getItemId() == R.id.mbvi) {
+            // chuyen sang man hinh vi
+            Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
+            startActivity(intent);
+            return true;
+
+
         }
         return super.onOptionsItemSelected(item);
     }

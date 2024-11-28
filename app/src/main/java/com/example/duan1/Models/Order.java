@@ -1,29 +1,30 @@
 package com.example.duan1.Models;
 
-import java.io.Serializable;
-
-import java.io.Serializable;
-import java.util.List;
-
-public class Order implements Serializable {
+public class Order {
+    private int id;
     private String address;
-    private List<CartItem> cartItems;
+    private String productDetails;
     private int totalPrice;
     private String status;
 
-    public Order(String address, List<CartItem> cartItems, int totalPrice, String status) {
+    public Order(int id, String address, String productDetails, int totalPrice, String status) {
+        this.id = id;
         this.address = address;
-        this.cartItems = cartItems;
+        this.productDetails = productDetails;
         this.totalPrice = totalPrice;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public List<CartItem> getCartItems() {
-        return cartItems;
+    public String getProductDetails() {
+        return productDetails;
     }
 
     public int getTotalPrice() {
