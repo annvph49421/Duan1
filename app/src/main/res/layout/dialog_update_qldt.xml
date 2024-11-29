@@ -57,6 +57,16 @@
             android:textAlignment="center"
             />
 
+        <ImageView
+            android:id="@+id/btn_updateimg_qldt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/btn_add_img" />
+
         <Button
             android:id="@+id/btn_update_qldt"
             android:layout_width="200dp"
