@@ -1,6 +1,10 @@
 package com.example.duan1.GioHang;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,13 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duan1.Adapter.CartAdapter;
 import com.example.duan1.DAO.CartDAO;
-import com.example.duan1.Home.Home;
 import com.example.duan1.Models.CartItem;
+import com.example.duan1.Models.Order;
 import com.example.duan1.R;
 import com.example.duan1.SQLite.CartDatabaseHelper;
 
@@ -28,71 +31,46 @@ public class CartActivity extends AppCompatActivity {
     private CartDAO cartDAO;
     private List<CartItem> cartItems;
     private TextView totalPriceTextView;
-    ImageView btnBack_ip,btnsua;
+    private ImageView btnBack,btnAddAddress,btnsua;
     private TextView addressTextView;
-    private double totalPrice = 0;
-
-    private ImageView btnAddAddress;
-    Button btndathang;
+    private Button btnOrder;
     private String address;
-    private CartDatabaseHelper cartDatabaseHelper;
-    //private TextView emptyCartTextView;
-
-
-
+    SQLiteOpenHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        btnBack_ip = findViewById(R.id. btnBack_ip);
-        //nút thoát
-        btnBack_ip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, Home.class));
-            }
-        });
 
+        // Ánh xạ các thành phần giao diện
+        btnBack = findViewById(R.id.btnBack_ip);
         cartListView = findViewById(R.id.cartListView);
         totalPriceTextView = findViewById(R.id.tvTotalPrice);
-        btnAddAddress = findViewById(R.id.btnAddAddress);
+        btnOrder = findViewById(R.id.btndathang);
         addressTextView = findViewById(R.id.addressTextView);
-        btndathang = findViewById(R.id.btndathang);
+        btnAddAddress = findViewById(R.id.btnAddAddress);
         btnsua = findViewById(R.id.btnsua);
 
-        cartDatabaseHelper = new CartDatabaseHelper(this);
-        cartListView.setAdapter(cartAdapter);
-
-
-
-    // TextView hiển thị tổng giá trị
         cartDAO = new CartDAO(this);
-        address = cartDAO.getAddress();
 
-        // Lấy dữ liệu giỏ hàng
+        // Lấy danh sách giỏ hàng từ cơ sở dữ liệu
         cartItems = cartDAO.getCartItems();
-
-        // Tạo adapter và gán vào ListView
         cartAdapter = new CartAdapter(this, cartItems);
         cartListView.setAdapter(cartAdapter);
-        // Tính toán tổng giá trị giỏ hàng
-        for (CartItem item : cartItems) {
-            totalPrice += item.getTotalPrice();
-        }
-
 
         // Cập nhật tổng giá trị giỏ hàng
         updateTotalPrice();
-        // Nếu có địa chỉ, hiển thị nó
+
+        // Hiển thị địa chỉ nhận hàng
+        address = cartDAO.getAddress();
         if (address != null) {
             addressTextView.setText(address);
-            btnAddAddress.setVisibility(View.GONE);  // Ẩn nút thêm địa chỉ nếu đã có
         } else {
             addressTextView.setText("Thêm địa chỉ nhận hàng");
         }
 
-        // Xử lý sự kiện thêm địa chỉ
+        // Xử lý nút quay lại
+        btnBack.setOnClickListener(v -> onBackPressed());
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,102 +85,98 @@ public class CartActivity extends AppCompatActivity {
             startActivityForResult(intent, 1); // Request code = 1
         });
 
-
-        // Sự kiện khi nhấn nút "Đặt Hàng"
-        // Trong CartActivity
-        btndathang.setOnClickListener(v -> {
-            // Lưu tất cả sản phẩm trong giỏ vào database (nếu cần)
-            for (CartItem item : cartItems) {
-                cartDAO.addToCart(item);
-            }
-
-            // Truyền thông tin đơn hàng đến OrderDetailsActivity
-            String address = addressTextView.getText().toString();
-            String productDetails = getProductDetails();  // Hàm lấy danh sách sản phẩm
-            int totalPrice = calculateTotalPrice();  // Hàm tính tổng tiền
-            String orderStatus = "Chờ phê duyệt";
-
-            Intent intent = new Intent(CartActivity.this, OrderConfirmationActivity.class);
-            intent.putExtra("address", address);
-            intent.putExtra("productDetails", productDetails);
-            intent.putExtra("totalPrice", totalPrice);
-            intent.putExtra("orderStatus", orderStatus);
-            startActivity(intent);
-        });
-
-
+        // Xử lý nút Đặt Hàng
+        btnOrder.setOnClickListener(v -> handleOrderPlacement());
     }
 
-    // Phương thức cập nhật tổng giá trị giỏ hàng
+    /**
+     * Cập nhật tổng giá trị giỏ hàng và hiển thị.
+     */
     public void updateTotalPrice() {
+        int totalPrice = calculateTotalPrice();
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+        totalPriceTextView.setText("Tổng cộng: " + decimalFormat.format(totalPrice));
+    }
+
+    /**
+     * Tính toán tổng giá trị của giỏ hàng.
+     */
+    private int calculateTotalPrice() {
         int totalPrice = 0;
         for (CartItem item : cartItems) {
-            totalPrice += item.getPrice();  // Tính tổng giá trị giỏ hàng
+            totalPrice += item.getPrice() * item.getQuantity();
         }
-        totalPriceTextView.setText("Tổng cộng: " + formatGia(totalPrice) + "đ");  // Hiển thị tổng giá trị
+        return totalPrice;
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            // Nhận thông tin địa chỉ đã sửa từ EditAddressActivity
-            String name = data.getStringExtra("name");
-            String address = data.getStringExtra("address");
-            String phone = data.getStringExtra("phone");
-
-            // Cập nhật địa chỉ trên CartActivity
-            addressTextView.setText("Tên: " + name + "\nĐịa chỉ: " + address + "\nSĐT: " + phone);
-
-            // Lưu địa chỉ mới vào cơ sở dữ liệu
-            CartDAO cartDAO = new CartDAO(this);
-            cartDAO.addAddress(address); // Cập nhật địa chỉ trong cơ sở dữ liệu
+    /**
+     * Tạo chi tiết sản phẩm trong giỏ hàng.
+     */
+    private String getProductDetails() {
+        StringBuilder productDetails = new StringBuilder();
+        for (CartItem item : cartItems) {
+            productDetails.append(item.getProductName())
+                    .append(" (x").append(item.getQuantity()).append(") - ")
+                    .append(item.getPrice()).append("đ\n");
         }
+        return productDetails.toString();
     }
-//    private void updateCartUI() {
-//        if (cartItems.isEmpty()) {
-//            emptyCartTextView.setVisibility(View.VISIBLE); // Hiển thị thông báo giỏ hàng trống
-//            cartListView.setVisibility(View.GONE); // Ẩn danh sách sản phẩm
-//        } else {
-//            emptyCartTextView.setVisibility(View.GONE); // Ẩn thông báo giỏ hàng trống
-//            cartListView.setVisibility(View.VISIBLE); // Hiển thị danh sách sản phẩm
+
+    /**
+     * Xử lý khi nhấn nút Đặt Hàng.
+     */
+    private void handleOrderPlacement() {
+        // Kiểm tra xem giỏ hàng có sản phẩm không
+        if (cartItems.isEmpty()) {
+            Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Kiểm tra nếu không có địa chỉ nhận hàng
+//        if (address == null || address.isEmpty()) {
+//            Toast.makeText(CartActivity.this, "Vui lòng thêm địa chỉ nhận hàng", Toast.LENGTH_SHORT).show();
+//            return;
 //        }
-//    }
-//
-//    private void proceedToOrderConfirmation() {
-//        // Xóa tất cả sản phẩm trong giỏ hàng
-//        cartDatabaseHelper.clearCart();
-//
-//        // Cập nhật lại giao diện giỏ hàng
-//        cartItems.clear();
-//        cartAdapter.notifyDataSetChanged();
-//        updateCartUI();
-//    }
-// Hàm lấy chi tiết sản phẩm từ giỏ hàng dưới dạng chuỗi
-// Hàm tính tổng giá trị của giỏ hàng
-private int calculateTotalPrice() {
-    int totalPrice = 0;
-    for (CartItem item : cartItems) {
-        // Tính giá trị của từng sản phẩm và cộng vào tổng tiền
-        totalPrice += item.getPrice() * item.getQuantity();
-    }
-    return totalPrice;
-}
-private String getProductDetails() {
-    StringBuilder productDetails = new StringBuilder();
-    for (CartItem item : cartItems) {
-        // Thêm tên sản phẩm, số lượng và giá vào chuỗi
-        productDetails.append(item.getProductName())
-                .append(" (x").append(item.getQuantity()).append(") - ")
-                .append(item.getPrice()).append("đ\n");
-    }
-    return productDetails.toString();
-}
 
+        // Thông tin đơn hàng
+        String productDetails = getProductDetails();
+        int totalPrice = calculateTotalPrice();
+        String orderStatus = "Chờ phê duyệt";  // Trạng thái đơn hàng
 
-    private String formatGia(double gia) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
-        return decimalFormat.format(gia);
+        // Tạo đối tượng Order và thêm vào cơ sở dữ liệu
+        Order order = new Order(address, totalPrice, orderStatus, cartItems);
+        cartDAO.addOrder(order); // Lưu đơn hàng vào cơ sở dữ liệu
+
+        // Xóa giỏ hàng sau khi đặt hàng
+        cartDAO.clearCart();
+        cartItems.clear();
+        cartAdapter.notifyDataSetChanged();
+
+        // Thông báo và chuyển sang màn hình xác nhận đơn hàng
+        Toast.makeText(CartActivity.this, "Đơn hàng đang chờ phê duyệt", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CartActivity.this, OrderConfirmationActivity.class);
+        intent.putExtra("address", address);
+        intent.putExtra("productDetails", productDetails);
+        intent.putExtra("totalPrice", totalPrice);
+        intent.putExtra("orderStatus", orderStatus);
+        startActivity(intent);
+
+        // Kết thúc Activity hiện tại
+        finish();
     }
+    // Phương thức lấy orderId của đơn hàng vừa thêm vào cơ sở dữ liệu
+    private int getLatestOrderId() {
+        // Lấy orderId mới nhất từ cơ sở dữ liệu
 
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS, new String[]{"MAX(order_id) AS max_order_id"}, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") int orderId = cursor.getInt(cursor.getColumnIndex("max_order_id"));
+            cursor.close();
+            db.close();
+            return orderId;
+        }
+        db.close();
+        return -1; // Trả về -1 nếu không có đơn hàng
+    }
 }

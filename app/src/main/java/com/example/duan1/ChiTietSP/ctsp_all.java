@@ -25,11 +25,11 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 
 public class ctsp_all extends AppCompatActivity {
-        ImageView btnBack, btnCong, btnTru,img_ct;
-        TextView tvSoluong, tvTongTien,tvName,tvPrice,tvPhoneRating,tvMota;
-        Button btnAdd;
-        private int soLuong = 1; // Số lượng mặc định là 1
-        private double giaSanPham = 0;
+    ImageView btnBack, btnCong, btnTru,img_ct;
+    TextView tvSoluong, tvTongTien,tvName,tvPrice,tvPhoneRating,tvMota;
+    Button btnAdd;
+    private int soLuong = 1; // Số lượng mặc định là 1
+    private double giaSanPham = 0;
 
 
     @Override
@@ -163,7 +163,4 @@ public class ctsp_all extends AppCompatActivity {
 
 
 
-    }
-
-
-
+}

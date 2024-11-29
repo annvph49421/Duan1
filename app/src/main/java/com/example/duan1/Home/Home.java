@@ -20,6 +20,7 @@ import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 
 import com.example.duan1.Fragment.QuanLyDTFragment;
+import com.example.duan1.GioHang.AdminOrderActivity;
 import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.GioHang.OrderConfirmationActivity;
 import com.example.duan1.ManHinhLogin.ManHinhLogin;
@@ -128,6 +129,9 @@ public class Home extends AppCompatActivity {
             }else if(id == R.id.mQLDT){
                 toolBar.setTitle("Quản lý điện thoại");
                 fragment= QuanLyDTFragment.newInstance();
+            } else if (id == R.id.mQLDH) {
+                Intent inten = new Intent(Home.this, AdminOrderActivity.class);
+                startActivity(inten);
             }
 
 
@@ -195,7 +199,13 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
             startActivity(intent);
 
+        }else if(item.getItemId()==R.id.mQLDH){
+            Intent inten = new Intent(Home.this, AdminOrderActivity.class);
+            startActivity(inten);
         }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 

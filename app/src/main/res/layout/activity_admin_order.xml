@@ -5,47 +5,70 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Địa chỉ nhận hàng -->
+    <!-- Hiển thị địa chỉ của đơn hàng -->
     <TextView
         android:id="@+id/addressTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Địa chỉ: "
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="#f0f0f0"
+        android:textColor="#333" />
 
-    <!-- Sản phẩm -->
+    <!-- Hiển thị chi tiết sản phẩm -->
     <TextView
-        android:id="@+id/productsTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/productDetailsTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sản phẩm: "
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:text="Chi tiết sản phẩm: "
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="#f0f0f0"
+        android:textColor="#333" />
 
-    <!-- Tổng tiền -->
+    <!-- Hiển thị tổng giá trị đơn hàng -->
     <TextView
         android:id="@+id/totalPriceTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tổng cộng: "
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="#f0f0f0"
+        android:textColor="#333" />
 
-    <!-- Trạng thái -->
+    <!-- Hiển thị trạng thái đơn hàng -->
     <TextView
         android:id="@+id/orderStatusTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Trạng thái: "
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="#f0f0f0"
+        android:textColor="#333" />
 
     <!-- Nút xác nhận đơn hàng -->
     <Button
         android:id="@+id/btnConfirmOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Xác nhận đơn hàng"
-        android:textSize="16sp" />
+
+
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
+
+    <!-- Nút hủy đơn hàng -->
+    <Button
+        android:id="@+id/btnCancelOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hủy đơn hàng"
+        android:background="@android:color/holo_red_dark"
+        android:textColor="#fff"
+        android:layout_marginTop="8dp"
+        android:padding="12dp" />
+
 </LinearLayout>

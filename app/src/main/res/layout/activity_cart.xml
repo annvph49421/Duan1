@@ -46,7 +46,7 @@
         android:id="@+id/btnAddAddress"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_cong"
         android:layout_marginLeft="24dp"
         android:visibility="visible" />

@@ -21,14 +21,19 @@
         <activity
             android:name=".ManHinhTT.TTCaNhan2"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
         <activity
             android:name=".GioHang.CartActivity"
             android:exported="false" />
         <activity android:name=".GioHang.OrderConfirmationActivity"
             android:exported="false"/>
+        <activity android:name=".GioHang.AdminOrderActivity"
+            android:exported="false"/>
+        <activity android:name=".GioHang.AddAddressActivity"
+            android:exported="false"/>
+        <activity android:name=".GioHang.EditAddressActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".Models.CartItem"
             android:exported="false"
@@ -52,13 +57,11 @@
             android:name=".ManHinhLogin.ManHinh1"
             android:exported="false" />
         <activity android:name=".ChiTietSP.ctsp_ip" />
-        <!--
- <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        -->
+        <activity android:name=".Home.Home"
+            android:exported="false"/>
+
         <activity
-            android:name=".Home.Home"
+            android:name=".MainActivity"
             android:exported="true">
 
             <intent-filter>

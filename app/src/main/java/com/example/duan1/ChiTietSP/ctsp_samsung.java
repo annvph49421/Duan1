@@ -121,6 +121,8 @@ public class ctsp_samsung extends AppCompatActivity {
             }
         });
         btnAdd_samsung.setOnClickListener(new View.OnClickListener() {
+            private int id;
+
             @Override
             public void onClick(View view) {
                 CartDAO cartDAO = new CartDAO(ctsp_samsung.this);
