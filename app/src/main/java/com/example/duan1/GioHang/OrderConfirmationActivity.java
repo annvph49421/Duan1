@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,66 +18,54 @@ import com.example.duan1.SQLite.CartDatabaseHelper;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
 
-    private TextView tvProductDetails, tvOrderAddress, tvTotalPrice, tvOrderStatus;
-    private Button btnConfirmOrder, btnCancelOrder;
     private CartDatabaseHelper dbHelper;
-    private String address, productDetails;
+    private String address;
+    private String productDetails;
     private int totalPrice;
+
+    // Các view trong layout
+    private TextView tvOrderAddress, tvProductDetails, tvTotalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
 
-        // Ánh xạ các view
-        tvProductDetails = findViewById(R.id.tvProductDetails);
-        tvOrderAddress = findViewById(R.id.tvOrderAddress);
-        tvTotalPrice = findViewById(R.id.tvTotalPrice);
-        tvOrderStatus = findViewById(R.id.tvOrderStatus);
-        btnConfirmOrder = findViewById(R.id.btnConfirmOrder);
-        btnCancelOrder = findViewById(R.id.btnCancelOrder);
-
         dbHelper = new CartDatabaseHelper(this);
 
-        // Nhận dữ liệu từ CartActivity
-        Intent intent = getIntent();
-        address = intent.getStringExtra("address");
-        productDetails = intent.getStringExtra("productDetails");
-        totalPrice = intent.getIntExtra("totalPrice", 0);
+        // Giả sử bạn đã lấy dữ liệu đơn hàng từ UI hoặc từ giỏ hàng
+        address = "123 Đường ABC";
+        productDetails = "Iphone 15 Pro Max 256GB (x1) - 31000000đ";
+        totalPrice = 31000000;
 
-        // Kiểm tra dữ liệu hợp lệ
-        if (address == null || productDetails == null || totalPrice == 0) {
-            Toast.makeText(this, "Dữ liệu đơn hàng không hợp lệ!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Gán dữ liệu vào các TextView để hiển thị
+        tvOrderAddress = findViewById(R.id.tvOrderAddress);
+        tvProductDetails = findViewById(R.id.tvProductDetails);
+        tvTotalPrice = findViewById(R.id.tvTotalPrice);
 
-        // Hiển thị thông tin đơn hàng
-        tvProductDetails.setText(productDetails);
         tvOrderAddress.setText(address);
+        tvProductDetails.setText(productDetails);
         tvTotalPrice.setText("Tổng cộng: " + totalPrice + "đ");
-        tvOrderStatus.setText("Trạng thái: Chờ xác nhận");
 
-        // Xử lý khi nhấn nút Xác nhận
-        btnConfirmOrder.setOnClickListener(v -> {
-            long orderId = saveOrder();
-            if (orderId != -1) {
-                Toast.makeText(this, "Đơn hàng đã được gửi!", Toast.LENGTH_SHORT).show();
+        // Lắng nghe sự kiện nút "Đặt hàng"
+        Button btnPlaceOrder = findViewById(R.id.btnConfirmOrder);
+        btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gọi phương thức saveOrder để lưu đơn hàng
+                long orderId = saveOrder();
 
-                // Gửi thông tin đến Admin
-                Intent adminIntent = new Intent(this, AdminOrderActivity.class);
-                adminIntent.putExtra("orderId", (int) orderId);
-                startActivity(adminIntent);
-                finish();
-            } else {
-                Toast.makeText(this, "Lỗi khi gửi đơn hàng!", Toast.LENGTH_SHORT).show();
+                if (orderId != -1) {
+                    Toast.makeText(OrderConfirmationActivity.this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                    // Tiến hành các bước tiếp theo, ví dụ: chuyển sang màn hình xác nhận, thanh toán...
+                } else {
+                    Toast.makeText(OrderConfirmationActivity.this, "Lỗi khi đặt hàng!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        // Xử lý khi nhấn nút Hủy
-        btnCancelOrder.setOnClickListener(v -> finish());
     }
 
-    // Lưu đơn hàng vào cơ sở dữ liệu
+    // Phương thức lưu đơn hàng vào cơ sở dữ liệu
     private long saveOrder() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -85,29 +74,23 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         values.put(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE, totalPrice);
         values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, "Chờ xác nhận");
 
-        long orderId = db.insert(CartDatabaseHelper.TABLE_ORDERS, null, values);
-        if (orderId == -1) {
-            Toast.makeText(this, "Lỗi khi lưu đơn hàng!", Toast.LENGTH_SHORT).show();
+        // Đảm bảo commit transaction
+        db.beginTransaction();
+        try {
+            long result = db.insert(CartDatabaseHelper.TABLE_ORDERS, null, values);
+
+            if (result == -1) {
+                Log.e("SaveOrder", "Lỗi khi lưu đơn hàng vào cơ sở dữ liệu");
+                db.endTransaction();
+                return -1;
+            }
+
+            // Commit transaction nếu thành công
+            db.setTransactionSuccessful();
+            Log.d("SaveOrder", "Đơn hàng đã được lưu với ID: " + result);
+            return result;
+        } finally {
+            db.endTransaction(); // Đảm bảo kết thúc transaction
         }
-        return orderId;
     }
-    private void loadOrderFromDatabase() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS, null, null, null, null, null, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String address = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_ADDRESS));
-                String productDetails = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_PRODUCT_DETAILS));
-                int totalPrice = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE));
-
-                // Hiển thị thông tin đơn hàng
-                tvOrderAddress.setText(address);
-                tvProductDetails.setText(productDetails);
-                tvTotalPrice.setText("Tổng cộng: " + totalPrice + "đ");
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-    }
-
 }

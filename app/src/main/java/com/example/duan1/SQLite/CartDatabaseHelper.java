@@ -37,6 +37,13 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_ROLE = "role"; // Vai trò: "admin" hoặc "user"
 
+    // Bảng thông báo
+    public static final String TABLE_NOTIFICATIONS = "notifications";
+    public static final String COLUMN_NOTIFICATION_ID = "notification_id";
+    public static final String COLUMN_NOTIFICATION_CONTENT = "content";
+    public static final String COLUMN_NOTIFICATION_STATUS = "status"; // "unread", "read"
+
+
     public CartDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -80,6 +87,13 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         adminUser.put(COLUMN_PASSWORD, "admin123"); // Lưu ý: mật khẩu cần được mã hóa trong thực tế
         adminUser.put(COLUMN_ROLE, "admin");
         db.insert(TABLE_USERS, null, adminUser);
+
+        // Tạo bảng thông báo
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE " + TABLE_NOTIFICATIONS + " (" +
+                COLUMN_NOTIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOTIFICATION_CONTENT + " TEXT, " +
+                COLUMN_NOTIFICATION_STATUS + " TEXT)";
+        db.execSQL(CREATE_NOTIFICATIONS_TABLE);
     }
 
     @Override
@@ -89,6 +103,8 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
         onCreate(db);
     }
 
