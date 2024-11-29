@@ -59,13 +59,24 @@
             />
 
         <ImageView
-            android:id="@+id/imageAnhDienThoai"
+            android:id="@+id/btn_addimg_qldt"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/btncong"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
             android:layout_marginBottom="20dp"
-            android:layout_gravity="center_horizontal"/>
+            android:src="@drawable/btn_add_img" />
+
+        <ImageView
+            android:id="@+id/img_addimg_qldt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="20dp"
+             />
 
         <Button
             android:id="@+id/btn_add_qldt"

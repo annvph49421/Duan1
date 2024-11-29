@@ -6,20 +6,24 @@ public class QLDT {
     private String sao;
     private String dungluong;
     private int gia;
+    private String image;
 
-    public QLDT(String tendt, String sao, String dungluong, int gia) {
+
+    public QLDT(String tendt, String sao, String dungluong, int gia, String image) {
         this.tendt = tendt;
         this.sao = sao;
         this.dungluong = dungluong;
         this.gia = gia;
+        this.image = image;
     }
 
-    public QLDT(int madt, String tendt, String sao, String dungluong, int gia) {
+    public QLDT(int madt, String tendt, String sao, String dungluong, int gia, String image) {
         this.madt = madt;
         this.tendt = tendt;
         this.sao = sao;
         this.dungluong = dungluong;
         this.gia = gia;
+        this.image = image;
     }
 
     public int getMadt() {
@@ -60,5 +64,13 @@ public class QLDT {
 
     public void setGia(int gia) {
         this.gia = gia;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

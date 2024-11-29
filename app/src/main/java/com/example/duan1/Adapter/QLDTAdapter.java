@@ -6,17 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.duan1.DAO.QLDTDAO;
 import com.example.duan1.Models.QLDT;
 import com.example.duan1.R;
@@ -30,6 +33,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
     private ArrayList<QLDT> list;
 
     private QLDTDAO qldtdao;
+    public QLDT qldt;
 
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
@@ -49,10 +53,22 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        QLDT currentQLDT= list.get(position);
+
         holder.tvql_tendt.setText(list.get(position).getTendt());
         holder.tvql_rate.setText(String.valueOf(list.get(position).getSao()));
         holder.tvql_dungluong.setText(list.get(position).getDungluong());
         holder.tvql_gia.setText(String.valueOf(Utils.formatCurrency(list.get(position).getGia())));
+
+        if (currentQLDT.getImage() != null){
+            String imageName = currentQLDT.getImage(); // Tên ảnh từ SQLite
+            int imageResId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+            holder.img_ct_dt.setImageResource(imageResId);
+
+        }else {
+            Glide.with(holder.itemView.getContext()).load(R.drawable.ic_basket).into(holder.img_ct_dt);
+
+        }
 
         //sửa
         holder.btn_sua_qldt.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +95,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvql_tendt, tvql_xoa, tvql_gia, tvql_dungluong, tvql_rate, btn_sua_qldt;
+        ImageView img_ct_dt;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -88,6 +105,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
             tvql_rate= itemView.findViewById(R.id.tvql_rate);
             tvql_tendt= itemView.findViewById(R.id.tvql_tendt);
             btn_sua_qldt= itemView.findViewById(R.id.btn_sua_qldt);
+            img_ct_dt= itemView.findViewById(R.id.img_ct_dt);
         }
     }
 
@@ -115,6 +133,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         EditText edt_gia_qldtS= view.findViewById(R.id.edt_gia_qldtS);
         Button btn_update_qldt= view.findViewById(R.id.btn_update_qldt);
         Button btn_cancel_qldtS= view.findViewById(R.id.btn_cancel_qldtS);
+        ImageView btn_updateimg_qldt= view.findViewById(R.id.btn_updateimg_qldt);
 
         //dua du lieu len tv
         edt_ten_qldtS.setText(qldt.getTendt());
@@ -138,12 +157,16 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
                 String dungluong= edt_dunglg_qldtS.getText().toString();
                 String gia= edt_gia_qldtS.getText().toString();
 
+
+                Uri imgUri= (Uri) btn_updateimg_qldt.getTag();
+                String image= imgUri != null ? imgUri.toString() : null;
+
                 if (tendt.length() == 0 || gia.length() == 0 || sao.length() == 0 || dungluong.length() == 0){
                     Toast.makeText(context, "Vui lòng không để trống", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    QLDT qldtSua= new QLDT(madt, tendt, sao, dungluong, Integer.parseInt(gia));
-                     boolean check= qldtdao.suaDT(qldtSua);
+                    QLDT qldtSua= new QLDT(madt, tendt, sao, dungluong, Integer.parseInt(gia), image);
+                     boolean check= qldtdao.suaDT(qldtSua, imgUri);
                      if (check){
                          Toast.makeText(context, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
 
