@@ -56,7 +56,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
 
         productName.setText(item.getProductName());
         quantity.setText("Số lượng: " + item.getQuantity());
-        price.setText("Giá: " + formattedPrice);
+        price.setText("Giá: " + decimalFormat.format(item.getTotalPrice()));
         productImage.setImageResource(item.getImageResId());
 
         // Tăng số lượng

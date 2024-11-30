@@ -30,7 +30,7 @@ public class CartItem {
     }
 
     public int getPrice() {
-        return price;
+        return price * quantity;
     }
 
     public void setPrice(int price) {
