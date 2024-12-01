@@ -73,4 +73,6 @@ public class QLDT {
     public void setImage(String image) {
         this.image = image;
     }
+
+
 }

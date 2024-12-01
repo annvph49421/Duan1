@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.duan1.DAO.QLDTDAO;
 import com.example.duan1.Models.QLDT;
 import com.example.duan1.R;
@@ -140,6 +147,18 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         edt_sao_qldtS.setText(qldt.getSao());
         edt_dunglg_qldtS.setText(qldt.getDungluong());
         edt_gia_qldtS.setText(String.valueOf(qldt.getGia()));
+
+        //hien thi anh
+        String imagePath = qldt.getImage();
+        int imageResId = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
+
+        if (imagePath != null && !imagePath.isEmpty()){
+            Log.d("ImagePath", "Image path: " + imagePath);
+            Glide.with(context)
+                    .load(imageResId)
+                    .error(R.drawable.error_img)
+                    .into(btn_updateimg_qldt);
+        }
 
         btn_cancel_qldtS.setOnClickListener(new View.OnClickListener() {
             @Override

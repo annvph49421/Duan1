@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,19 +32,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.duan1.Adapter.QLDTAdapter;
 import com.example.duan1.DAO.QLDTDAO;
 import com.example.duan1.Models.QLDT;
 import com.example.duan1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class QuanLyDTFragment extends Fragment {
     private RecyclerView recyclerView_qldt;
     private FloatingActionButton floatAdd_qldt;
     private QLDTDAO qldtdao;
-    private static final int REQUEST_CODE_PICK_IMAGE = 1001;
+    private static final int REQUEST_CODE_PICK_IMAGE = 1;
+
+    private static final int REQUEST_CODE_PERMISSION = 100;
+    private ImageView btn_addimg_qldt;
+
 
 
     @Nullable
@@ -65,6 +76,12 @@ public class QuanLyDTFragment extends Fragment {
             }
         });
 
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_CODE_PERMISSION);
+        }
+
         return view;
     }
 
@@ -86,6 +103,8 @@ public class QuanLyDTFragment extends Fragment {
         Button btn_add_qldt= view.findViewById(R.id.btn_add_qldt);
         Button btn_cancel_qldt= view.findViewById(R.id.btn_cancel_qldt);
         ImageView btn_addimg_qldt= view.findViewById(R.id.btn_addimg_qldt);
+
+
 
 
         btn_add_qldt.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +153,30 @@ public class QuanLyDTFragment extends Fragment {
                 }
             }
         });
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data.getData() != null){
+            Uri selectedImageUri= data.getData();
+            Log.d("URI", "Selected Image URI: " + selectedImageUri);
+
+            try {
+                ImageView btn_addimg_qldt= getView().findViewById(R.id.btn_addimg_qldt);
+                if (btn_addimg_qldt != null){
+                    Glide.with(getContext())
+                            .load(selectedImageUri)
+                            .error(R.drawable.error_img)
+                            .into(btn_addimg_qldt);
+                }
+            } catch (Exception e) {
+                Log.e("Error", "Failed to load image ", e);
+            }
+
+        }
     }
 
     public static QuanLyDTFragment newInstance() {
@@ -150,25 +193,8 @@ public class QuanLyDTFragment extends Fragment {
         recyclerView_qldt.setAdapter(adapter);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null){
-            Uri selectedImageUri= data.getData();
-            Log.d("URI", "Selected Image URI: " + selectedImageUri);
 
-            if (getView() != null){
-                ImageView btn_addimg_qldt= getView().findViewById(R.id.btn_addimg_qldt);
-                ImageView img_addimg_qldt= getView().findViewById(R.id.img_addimg_qldt);
-                if (img_addimg_qldt != null){
-                    Glide.with(this).load(selectedImageUri).error(R.drawable.error_img).into(img_addimg_qldt);
 
-                }else {
-                    Log.e("Error", "ImageView btn_addimg_qldt is null");
-                }
-            }else {
-                Log.e("Error", "Fragment's view is null");
-            }
-        }
-    }
+
+
 }

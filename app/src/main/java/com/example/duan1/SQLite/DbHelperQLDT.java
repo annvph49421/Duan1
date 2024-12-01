@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 
 public class DbHelperQLDT extends SQLiteOpenHelper {
     public DbHelperQLDT(Context context){
-        super(context, "QLDT1", null, 1);
+        super(context, "QLDT2", null, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
