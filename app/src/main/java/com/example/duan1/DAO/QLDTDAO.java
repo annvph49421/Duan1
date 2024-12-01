@@ -35,19 +35,23 @@ public class QLDTDAO {
         SQLiteDatabase sqLiteDatabase= dbHelperQLDT.getReadableDatabase();
 
         ArrayList<QLDT> list= new ArrayList<>();
-        Cursor cursor= sqLiteDatabase.rawQuery("SELECT * FROM DANHSACHDT", null);
-        if (cursor.getCount() > 0){
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM DANHSACHDT", null);
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             do {
-                 list.add(new QLDT(
-                         cursor.getInt(0),
-                         cursor.getString(1),
-                         cursor.getString(2),
-                         cursor.getString(3),
-                         cursor.getInt(4),
-                         cursor.isNull(5) ? null : cursor.getString(5)));
-            }while (cursor.moveToNext());
+                String imgName = cursor.isNull(5) ? null : cursor.getString(5);
+                Log.d("CursorData", "Image name: " + imgName);
+                list.add(new QLDT(
+                        cursor.getInt(0),  // madt
+                        cursor.getString(1),  // tendt
+                        cursor.getString(2),  // sao
+                        cursor.getString(3),  // dungluong
+                        cursor.getInt(4),  // gia
+                        imgName  // Image path
+                ));
+            } while (cursor.moveToNext());
         }
+
 
         return list;
     }
@@ -63,7 +67,7 @@ public class QLDTDAO {
         contentValues.put("sao", qldt.getSao());
         contentValues.put("dungluong", qldt.getDungluong());
         contentValues.put("gia", qldt.getGia());
-        contentValues.put("image", imgPath);
+        contentValues.put("image1", imgPath);
 
         long check= sqLiteDatabase.insert("DANHSACHDT", null, contentValues);
         if (check == -1) return false;
@@ -81,7 +85,7 @@ public class QLDTDAO {
         contentValues.put("sao", qldt.getSao());
         contentValues.put("dungluong", qldt.getDungluong());
         contentValues.put("gia", qldt.getGia());
-        contentValues.put("image", imgPath);
+        contentValues.put("image1", imgPath);
 
         int check= sqLiteDatabase.update("DANHSACHDT", contentValues, "madt= ?", new String[]{String.valueOf(qldt.getMadt())});
         if (check <= 0) return false;

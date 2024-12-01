@@ -14,7 +14,7 @@ public class DbHelperQLDT extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-         String qDSDT= "CREATE TABLE DANHSACHDT(madt INTEGER PRIMARY KEY AUTOINCREMENT, tendt TEXT, sao DOUBLE, dungluong TEXT, gia INTEGER, image TEXT)";
+         String qDSDT= "CREATE TABLE DANHSACHDT(madt INTEGER PRIMARY KEY AUTOINCREMENT, tendt TEXT, sao DOUBLE, dungluong TEXT, gia INTEGER, image1 TEXT NOT NULL)";
          sqLiteDatabase.execSQL(qDSDT);
 
          String dDSDT= "INSERT INTO DANHSACHDT VALUES(1, 'Iphone 15 Pro Max', 5, '256', 31000000, 'product_ip15promax_1'), (2, 'OPPO Reno12', 4.7, '64', 12290000, 'product_oppo12_1')";
