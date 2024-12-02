@@ -2,6 +2,7 @@ package com.example.duan1.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -92,18 +93,19 @@ public class CartDAO {
         ContentValues values = new ContentValues();
         values.put(CartDatabaseHelper.COLUMN_ADDRESS, address);
 
-        // Kiểm tra nếu đã có địa chỉ, nếu có thì cập nhật, nếu không thì thêm mới
+        // Kiểm tra xem địa chỉ đã tồn tại chưa
         Cursor cursor = db.query(CartDatabaseHelper.TABLE_ADDRESS, null, null, null, null, null, null);
-        if (cursor != null && cursor.getCount() > 0) {
-            // Cập nhật địa chỉ nếu đã có
+        if (cursor != null && cursor.moveToFirst()) {
+            // Cập nhật địa chỉ
             db.update(CartDatabaseHelper.TABLE_ADDRESS, values, null, null);
         } else {
-            // Thêm mới địa chỉ nếu chưa có
+            // Thêm địa chỉ mới
             db.insert(CartDatabaseHelper.TABLE_ADDRESS, null, values);
         }
-        cursor.close();
+        if (cursor != null) cursor.close();
         db.close();
     }
+
 
     // Lấy địa chỉ từ cơ sở dữ liệu
     public String getAddress() {
@@ -115,8 +117,9 @@ public class CartDAO {
             db.close();
             return address;
         } else {
+            if (cursor != null) cursor.close();
             db.close();
-            return null;
+            return null; // Không có địa chỉ
         }
     }
 

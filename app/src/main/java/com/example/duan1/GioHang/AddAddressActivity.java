@@ -40,7 +40,7 @@ public class AddAddressActivity extends AppCompatActivity {
                 String address = edtAddress.getText().toString();
                 String phone = edtPhone.getText().toString();
 
-                // Kiểm tra dữ liệu
+
                 if (name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
                     Toast.makeText(AddAddressActivity.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 } else {

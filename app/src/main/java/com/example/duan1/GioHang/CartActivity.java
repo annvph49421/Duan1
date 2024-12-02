@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duan1.Adapter.CartAdapter;
@@ -160,5 +161,29 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            // Lấy dữ liệu địa chỉ từ Intent
+            String name = data.getStringExtra("name");
+            String address = data.getStringExtra("address");
+            String phone = data.getStringExtra("phone");
+
+            if (name != null && address != null && phone != null) {
+                // Gộp địa chỉ và lưu vào cơ sở dữ liệu
+                String fullAddress = address + " - " + phone + "\n" + name;
+                cartDAO.addAddress(fullAddress);
+
+                // Hiển thị địa chỉ lên giao diện
+                addressTextView.setText(fullAddress);
+                Toast.makeText(this, "Địa chỉ đã được cập nhật", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Không thể cập nhật địa chỉ. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
