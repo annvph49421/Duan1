@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.duan1.Adapter.PhoneAdapter;
 import com.example.duan1.Models.PhoneModels;
@@ -25,6 +26,7 @@ public class DSDienThoaiFragment extends Fragment {
     private RecyclerView PhoneRecycleView;
     private PhoneAdapter phoneAdapter;
     private List<PhoneModels> phoneModelsList;
+    private SearchView searchView;
 
     public DSDienThoaiFragment() {
         // Required empty public constructor
@@ -45,6 +47,8 @@ public class DSDienThoaiFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,13 +57,31 @@ public class DSDienThoaiFragment extends Fragment {
         PhoneRecycleView = view.findViewById(R.id.PhoneRecycleView);
         PhoneRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         phoneModelsList = getListPhone();
+        searchView = view.findViewById(R.id.SearchView);
         phoneAdapter = new PhoneAdapter(getContext(),phoneModelsList);
         PhoneRecycleView.setAdapter(phoneAdapter);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                phoneAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                phoneAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
 
         return view;
 
 
     }
+
+
 
     private List<PhoneModels> getListPhone(){
         List<PhoneModels> phoneModelsList = new ArrayList<>();

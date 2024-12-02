@@ -17,16 +17,19 @@ import com.example.duan1.Models.PhoneModels;
 import com.example.duan1.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHolder> {
 
     private List<PhoneModels> phoneModelsList;
+    private List<PhoneModels> phoneModelsListFull;
     private Context context;
 
     public PhoneAdapter(Context context, List<PhoneModels> phoneModelsList) {
         this.context = context; // Sửa lỗi gán context
         this.phoneModelsList = phoneModelsList;
+        this.phoneModelsListFull = new ArrayList<>(phoneModelsList);
     }
 
     @NonNull
@@ -61,6 +64,38 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHol
     public int getItemCount() {
         return phoneModelsList.size();
     }
+
+    public android.widget.Filter getFilter(){
+        return filter;
+    }
+
+    private final android.widget.Filter filter = new android.widget.Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<PhoneModels> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(phoneModelsListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (PhoneModels phone : phoneModelsListFull) {
+                    if (phone.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(phone);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            phoneModelsList.clear();
+            phoneModelsList.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     public static class PhoneViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPhone;
