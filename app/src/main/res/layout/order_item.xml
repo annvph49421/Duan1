@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Địa chỉ -->
+    <TextView
+        android:id="@+id/tvOrderAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ: 123 ABC"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"/>
+
+    <!-- Tổng giá trị -->
+    <TextView
+        android:id="@+id/tvOrderTotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số đơn: 500,000 đ"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Trạng thái đơn hàng -->
+    <TextView
+        android:id="@+id/tvOrderStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: Chờ phê duyệt"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <!-- Chi tiết sản phẩm -->
+    <TextView
+        android:id="@+id/tvProductDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sản phẩm: Sản phẩm A x 2, Sản phẩm B x 1"
+        android:textSize="14sp"
+
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvOrderApprovalStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: " />
+
+</LinearLayout>

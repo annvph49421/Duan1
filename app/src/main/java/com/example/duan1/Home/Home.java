@@ -20,10 +20,9 @@ import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 
 import com.example.duan1.Fragment.QuanLyDTFragment;
-import com.example.duan1.GioHang.AdminOrderActivity;
+import com.example.duan1.GioHang.AdminOrdersActivity;
 import com.example.duan1.GioHang.CartActivity;
-import com.example.duan1.GioHang.OrderConfirmationActivity;
-import com.example.duan1.ManHinhLogin.ManHinhLogin;
+import com.example.duan1.GioHang.OrdersActivity;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -130,7 +129,7 @@ public class Home extends AppCompatActivity {
                 toolBar.setTitle("Quản lý điện thoại");
                 fragment= QuanLyDTFragment.newInstance();
             } else if (id == R.id.mQLDH) {
-                Intent inten = new Intent(Home.this, AdminOrderActivity.class);
+                Intent inten = new Intent(Home.this, AdminOrdersActivity.class);
                 startActivity(inten);
             }
 
@@ -164,7 +163,7 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             } else if (id==R.id.mbvi) {
-                Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
+                Intent intent = new Intent(Home.this, OrdersActivity.class);
                 startActivity(intent);
 
             }
@@ -195,13 +194,13 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
-        } else if (item.getItemId() == R.id.mbvi) {
-            Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
-            startActivity(intent);
-
-        }else if(item.getItemId()==R.id.mQLDH){
-            Intent inten = new Intent(Home.this, AdminOrderActivity.class);
-            startActivity(inten);
+//        } else if (item.getItemId() == R.id.mbvi) {
+//            Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
+//            startActivity(intent);
+//
+//        }else if(item.getItemId()==R.id.mQLDH){
+//            Intent inten = new Intent(Home.this, AdminOrderActivity.class);
+//            startActivity(inten);
         }
 
 

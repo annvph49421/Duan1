@@ -1,5 +1,6 @@
 package com.example.duan1.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -7,58 +8,21 @@ public class Order {
     private String address;
     private int totalPrice;
     private String status;
-    private List<CartItem> cartItems;  // Danh sách sản phẩm trong đơn hàng
-    private String productDetails;  // Chi tiết sản phẩm trong đơn hàng
+    private String productDetails;
+    private List<CartItem> cartItems;
+    private String approvalStatus;
 
 
-
-    public Order(String address, int totalPrice, String status, List<CartItem> cartItems) {
-        this.address = address;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.cartItems = cartItems;
+    public String getApprovalStatus() {
+        return approvalStatus;
     }
 
-    public Order(int orderId, String address, int totalPrice, String status, List<CartItem> cartItems, String productDetails) {
-        this.orderId = orderId;
-        this.address = address;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.cartItems = cartItems;
-        this.productDetails = productDetails;
+    public void setApprovalStatus(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
-    // Getters và Setters
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public Order(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
     public List<CartItem> getCartItems() {
@@ -69,6 +33,39 @@ public class Order {
         this.cartItems = cartItems;
     }
 
+    public Order(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public Order(String address, int orderId, String productDetails, String status, int totalPrice) {
+        this.address = address;
+        this.orderId = orderId;
+        this.productDetails = productDetails;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        if (cartItems == null) {
+            this.cartItems = new ArrayList<>();
+        } else {
+            this.cartItems = cartItems;
+        }
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     public String getProductDetails() {
         return productDetails;
     }
@@ -77,18 +74,20 @@ public class Order {
         this.productDetails = productDetails;
     }
 
-    public String generateProductDetails() {
-        StringBuilder details = new StringBuilder();
-
-        for (CartItem item : cartItems) {
-            details.append(item.getProductName())
-                    .append(" (x")
-                    .append(item.getQuantity())
-                    .append(") - ")
-                    .append(item.getPrice())
-                    .append("đ\n");
-        }
-
-        return details.toString();
+    public String getStatus() {
+        return status;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
 }
