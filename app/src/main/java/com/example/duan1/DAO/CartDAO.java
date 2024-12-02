@@ -121,73 +121,75 @@ public class CartDAO {
     }
 
     // Thêm đơn hàng vào cơ sở dữ liệu
-    public void addOrder(Order order) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(CartDatabaseHelper.COLUMN_ORDER_ADDRESS, order.getAddress());
-        values.put(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE, order.getTotalPrice());
-        values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, order.getStatus());
-        values.put(CartDatabaseHelper.COLUMN_ORDER_PRODUCT_DETAILS, order.getProductDetails());
-
-        long orderId = db.insert(CartDatabaseHelper.TABLE_ORDERS, null, values);
-        db.close();
-
-        // Cập nhật lại ID cho đơn hàng vừa thêm
-        order.setOrderId((int) orderId);
-    }
+//    public long addOrder(Order order) {
+//        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(CartDatabaseHelper.COLUMN_ORDER_ADDRESS, order.getAddress());
+//        values.put(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE, order.getTotalPrice());
+//        values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, order.getStatus());
+//        values.put(CartDatabaseHelper.COLUMN_ORDER_PRODUCT_DETAILS, order.getProductDetails());
+//
+//        long orderId = db.insert(CartDatabaseHelper.TABLE_ORDERS, null, values);
+//        db.close();
+//
+//        // Cập nhật lại ID cho đơn hàng vừa thêm
+//        order.setOrderId((int) orderId);
+//        return orderId;
+//    }
 
     // Lấy thông tin đơn hàng từ cơ sở dữ liệu
-    public Order getOrder(int orderId) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS, null, "order_id = ?", new String[]{String.valueOf(orderId)}, null, null, null);
+//    public Order getOrder(int orderId) {
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS, null, "order_id = ?", new String[]{String.valueOf(orderId)}, null, null, null);
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            String address = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_ADDRESS));
+//            int totalPrice = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE));
+//            String status = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_STATUS));
+//            String productDetails = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_PRODUCT_DETAILS));
+//
+//            cursor.close();
+//            db.close();
+//
+//            // Tạo đối tượng Order
+//            Order order = new Order( address, totalPrice, status, null);
+//            order.setOrderId(orderId);
+//            order.setProductDetails(productDetails);
+//            return order;
+//        }
 
-        if (cursor != null && cursor.moveToFirst()) {
-            String address = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_ADDRESS));
-            int totalPrice = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_TOTAL_PRICE));
-            String status = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_STATUS));
-            String productDetails = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_PRODUCT_DETAILS));
-
-            cursor.close();
-            db.close();
-
-            // Tạo đối tượng Order
-            Order order = new Order(address, totalPrice, status, null);
-            order.setOrderId(orderId);
-            order.setProductDetails(productDetails);
-            return order;
-        }
-
-        db.close();
-        return null;
-    }
+//        db.close();
+//        return null;
+//    }
 
     // Cập nhật trạng thái đơn hàng (Xác nhận hoặc hủy)
-    public boolean updateOrderStatus(int orderId, String status) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, status);
+//    public boolean updateOrderStatus(int orderId, String status) {
+//        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(CartDatabaseHelper.COLUMN_ORDER_STATUS, status);
 
         // Cập nhật đơn hàng theo orderId
-        int rowsAffected = db.update(CartDatabaseHelper.TABLE_ORDERS, values, CartDatabaseHelper.COLUMN_ORDER_ID + " = ?", new String[]{String.valueOf(orderId)});
-        db.close();
-        return rowsAffected > 0; // Nếu cập nhật thành công, trả về true
-    }
+//        int rowsAffected = db.update(CartDatabaseHelper.TABLE_ORDERS, values, CartDatabaseHelper.COLUMN_ORDER_ID + " = ?", new String[]{String.valueOf(orderId)});
+//        db.close();
+//        return rowsAffected > 0; // Nếu cập nhật thành công, trả về true
+//    }
     // Method to get the orderId by address
-    public int getOrderIdByAddress(String address) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS,
-                new String[]{CartDatabaseHelper.COLUMN_ORDER_ID},
-                CartDatabaseHelper.COLUMN_ORDER_ADDRESS + " = ?",
-                new String[]{address},
-                null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int orderId = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_ID));
-            cursor.close();
-            return orderId;
-        }
-        cursor.close();
-        return -1;  // Indicating no order found
-    }
+    // Method to get the orderId by address
+//    public int getOrderIdByAddress(String address) {
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        Cursor cursor = db.query(CartDatabaseHelper.TABLE_ORDERS,
+//                new String[]{CartDatabaseHelper.COLUMN_ORDER_ID},
+//                CartDatabaseHelper.COLUMN_ORDER_ADDRESS + " = ?",
+//                new String[]{address},
+//                null, null, null);
+//        if (cursor != null && cursor.moveToFirst()) {
+//            int orderId = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_ORDER_ID));
+//            cursor.close();
+//            return orderId;
+//        }
+//        cursor.close();
+//        return -1;  // Indicating no order found
+//    }
 
 
 }

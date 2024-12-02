@@ -4,87 +4,51 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.duan1.DAO.OrderDAO;
+import com.example.duan1.Models.CartItem;
 import com.example.duan1.Models.Order;
 import com.example.duan1.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
+public class OrderAdapter extends ArrayAdapter<Order> {
 
     private Context context;
     private List<Order> orders;
-    private OrderDAO orderDAO;
 
     public OrderAdapter(Context context, List<Order> orders) {
+        super(context, 0, orders);
         this.context = context;
         this.orders = orders;
-        this.orderDAO = new OrderDAO(context); // Khởi tạo OrderDAO
-    }
-
-    @NonNull
-    @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_order, parent, false);
-        return new OrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.order_item, parent, false);
+        }
+
+        // Lấy thông tin đơn hàng tại vị trí hiện tại
         Order order = orders.get(position);
 
-        holder.tvOrderDetails.setText(order.getProductDetails());
-        holder.tvOrderAddress.setText(order.getAddress());
-        holder.tvOrderStatus.setText(order.getStatus());
+        // Ánh xạ các thành phần giao diện
+        TextView tvOrderAddress = convertView.findViewById(R.id.tvOrderAddress);
+        TextView tvOrderTotalPrice = convertView.findViewById(R.id.tvOrderTotalPrice);
+        TextView tvOrderStatus = convertView.findViewById(R.id.tvOrderStatus);
+        TextView tvProductDetails = convertView.findViewById(R.id.tvProductDetails);
+        TextView tvOrderApprovalStatus = convertView.findViewById(R.id.tvOrderApprovalStatus);
 
-        // Xử lý sự kiện nút Xác nhận
-        holder.btnConfirmOrder.setOnClickListener(v -> {
-            order.setStatus("Đã xác nhận");
-            notifyItemChanged(position); // Cập nhật lại vị trí đơn hàng trong RecyclerView
+        // Thiết lập giá trị cho các TextView
+        tvOrderAddress.setText("Địa chỉ: " + order.getAddress());
+        tvOrderTotalPrice.setText("Tổng cộng: " + order.getTotalPrice() + " đ");
+        tvOrderStatus.setText("Trạng thái: " + order.getStatus());
+        tvProductDetails.setText("Sản phẩm: " + order.getProductDetails());
+        tvOrderApprovalStatus.setText("Trạng thái phê duyệt: " + order.getApprovalStatus());  // Hiển thị trạng thái
 
-            // Cập nhật trạng thái đơn hàng trong database
-            orderDAO.updateOrderStatus(order.getOrderId(), "Đã xác nhận");
-
-            // Thông báo cho người dùng
-            Toast.makeText(context, "Đơn hàng đã được xác nhận", Toast.LENGTH_SHORT).show();
-        });
-
-        // Xử lý sự kiện nút Hủy
-        holder.btnCancelOrder.setOnClickListener(v -> {
-            order.setStatus("Đã hủy");
-            notifyItemChanged(position); // Cập nhật lại vị trí đơn hàng trong RecyclerView
-
-            // Cập nhật trạng thái đơn hàng trong database
-            orderDAO.updateOrderStatus(order.getOrderId(), "Đã hủy");
-
-            // Thông báo cho người dùng
-            Toast.makeText(context, "Đơn hàng đã bị hủy", Toast.LENGTH_SHORT).show();
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return orders.size();
-    }
-
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOrderDetails, tvOrderAddress, tvOrderStatus;
-        Button btnConfirmOrder, btnCancelOrder;
-
-        public OrderViewHolder(View itemView) {
-            super(itemView);
-            tvOrderDetails = itemView.findViewById(R.id.tvOrderDetails);
-            tvOrderAddress = itemView.findViewById(R.id.tvOrderAddress);
-            tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
-            btnConfirmOrder = itemView.findViewById(R.id.btnConfirmOrder);
-            btnCancelOrder = itemView.findViewById(R.id.btnCancelOrder);
-        }
+        return convertView;
     }
 }
