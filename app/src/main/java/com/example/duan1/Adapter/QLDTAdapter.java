@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +34,7 @@ import com.example.duan1.DAO.QLDTDAO;
 import com.example.duan1.Models.QLDT;
 import com.example.duan1.R;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -41,12 +45,15 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
     private QLDTDAO qldtdao;
     public QLDT qldt;
+    private static final int REQUEST_CODE_PICK_IMAGE = 100;
 
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
         this.list = list;
         this.qldtdao = qldtdao;
     }
+
+
 
     @NonNull
     @Override
@@ -67,13 +74,29 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         holder.tvql_dungluong.setText(list.get(position).getDungluong());
         holder.tvql_gia.setText(String.valueOf(Utils.formatCurrency(list.get(position).getGia())));
 
+        String imagePath= currentQLDT.getImage();
         if (currentQLDT.getImage() != null){
-            String imageName = currentQLDT.getImage(); // Tên ảnh từ SQLite
-            int imageResId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-            holder.img_ct_dt.setImageResource(imageResId);
+            Glide.with(holder.itemView.getContext())
+                    .load(imagePath)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Log.e("GlideError", "Failed to load image: " + imagePath, e);
+                            return false; // Hiển thị ảnh lỗi
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            Log.d("GlideSuccess", "Image loaded successfully: " + imagePath);
+                            return false;
+                        }
+                    })
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ct_dt);
+
 
         }else {
-            Glide.with(holder.itemView.getContext()).load(R.drawable.ic_basket).into(holder.img_ct_dt);
+            Glide.with(holder.itemView.getContext()).load(R.drawable.error_img).into(holder.img_ct_dt);
 
         }
 
@@ -142,6 +165,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         Button btn_cancel_qldtS= view.findViewById(R.id.btn_cancel_qldtS);
         ImageView btn_updateimg_qldt= view.findViewById(R.id.btn_updateimg_qldt);
 
+
         //dua du lieu len tv
         edt_ten_qldtS.setText(qldt.getTendt());
         edt_sao_qldtS.setText(qldt.getSao());
@@ -150,15 +174,37 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
         //hien thi anh
         String imagePath = qldt.getImage();
-        int imageResId = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
+        File imageFile = new File(imagePath);
+        Uri imageUri = Uri.fromFile(imageFile);
 
         if (imagePath != null && !imagePath.isEmpty()){
             Log.d("ImagePath", "Image path: " + imagePath);
             Glide.with(context)
-                    .load(imageResId)
+                    .load(imageUri)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Log.e("GlideError", "Failed to load image: " + imagePath, e);
+                            return false; // Hiển thị ảnh lỗi
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            Log.d("GlideSuccess", "Image loaded successfully: " + imagePath);
+                            return false;
+                        }
+                    })
                     .error(R.drawable.error_img)
                     .into(btn_updateimg_qldt);
         }
+
+        btn_updateimg_qldt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
+            }
+        });
 
         btn_cancel_qldtS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,11 +234,9 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
                      boolean check= qldtdao.suaDT(qldtSua, imgUri);
                      if (check){
                          Toast.makeText(context, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
-
                          list.clear();
                          list= qldtdao.getDS();
                          notifyDataSetChanged();
-
                          alertDialog.dismiss();
 
                      }else {
@@ -201,9 +245,6 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
                 }
             }
         });
-
-
-
     }
 
     private void showDialogDelete(String tendt, int madt){
@@ -230,4 +271,6 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
     }
+
 }
+

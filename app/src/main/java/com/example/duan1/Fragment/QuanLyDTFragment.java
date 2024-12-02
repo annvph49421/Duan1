@@ -102,7 +102,7 @@ public class QuanLyDTFragment extends Fragment {
         EditText edt_gia_qldt= view.findViewById(R.id.edt_gia_qldt);
         Button btn_add_qldt= view.findViewById(R.id.btn_add_qldt);
         Button btn_cancel_qldt= view.findViewById(R.id.btn_cancel_qldt);
-        ImageView btn_addimg_qldt= view.findViewById(R.id.btn_addimg_qldt);
+        btn_addimg_qldt= view.findViewById(R.id.btn_addimg_qldt);
 
 
 
@@ -115,13 +115,13 @@ public class QuanLyDTFragment extends Fragment {
                 String dungluong= edt_dunglg_qldt.getText().toString();
                 String gia= edt_gia_qldt.getText().toString();
                 Uri imgUri= (Uri) btn_addimg_qldt.getTag();
-                String image= imgUri != null ? imgUri.toString() : null;
+
 
                 if (tendt.length() == 0 || sao.length() == 0 || dungluong.length() == 0 || gia.length() == 0){
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    QLDT qldt= new QLDT(tendt, sao, dungluong, Integer.parseInt(gia),image);
+                    QLDT qldt= new QLDT(tendt, sao, dungluong, Integer.parseInt(gia),imgUri != null ? imgUri.toString() : null);
                     boolean check= qldtdao.themDTMoi(qldt, imgUri);
                     if (check){
                         Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
@@ -129,6 +129,12 @@ public class QuanLyDTFragment extends Fragment {
                         alertDialog.dismiss();
                     }else {
                         Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                        Log.d("Debug", "Name: " + tendt);
+                        Log.d("Debug", "Star: " + sao);
+                        Log.d("Debug", "Storage: " + dungluong);
+                        Log.d("Debug", "Price: " + gia);
+                        Log.d("Debug", "Image URI: " + (imgUri != null ? imgUri.toString() : "null"));
+
                     }
                 }
 
@@ -165,9 +171,9 @@ public class QuanLyDTFragment extends Fragment {
             Log.d("URI", "Selected Image URI: " + selectedImageUri);
 
             try {
-                ImageView btn_addimg_qldt= getView().findViewById(R.id.btn_addimg_qldt);
                 if (btn_addimg_qldt != null){
-                    Glide.with(getContext())
+                    btn_addimg_qldt.setTag(selectedImageUri);
+                    Glide.with(requireContext())
                             .load(selectedImageUri)
                             .error(R.drawable.error_img)
                             .into(btn_addimg_qldt);

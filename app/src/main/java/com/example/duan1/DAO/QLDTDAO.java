@@ -28,6 +28,7 @@ public class QLDTDAO {
     private Context context;
 
     public QLDTDAO(Context context){
+        this.context= context;
         dbHelperQLDT= new DbHelperQLDT(context);
     }
 
@@ -69,6 +70,11 @@ public class QLDTDAO {
         contentValues.put("gia", qldt.getGia());
         contentValues.put("image1", imgPath);
 
+        Log.d("Debug", "Image Path: " + imgPath);
+        Log.d("Debug", "Image URI: " + imgUri);
+
+
+
         long check= sqLiteDatabase.insert("DANHSACHDT", null, contentValues);
         if (check == -1) return false;
         return true;
@@ -103,27 +109,45 @@ public class QLDTDAO {
     }
 
     //thêm ảnh
-    private String saveImageToStorage(Uri imageUri) {
+    private String saveImageToStorage(Uri imgUri) {
         try {
-            InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
-            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "image_" + System.currentTimeMillis() + ".jpg");
-
-            OutputStream outputStream = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, length);
+            if (imgUri == null) {
+                Log.e("SaveImageError", "Image URI is null");
+                return null;
             }
 
-            inputStream.close();
-            outputStream.close();
+            InputStream inputStream = context.getContentResolver().openInputStream(imgUri);
+            if (inputStream == null) {
+                Log.e("SaveImageError", "InputStream is null for URI: " + imgUri);
+                return null;
+            }
 
-            return file.getAbsolutePath();  // trả về đường dẫn file hình ảnh
-        } catch (IOException e) {
-            e.printStackTrace();
+            File file = new File(context.getFilesDir(), "images");
+            if (!file.exists() && !file.mkdirs()) {
+                Log.e("SaveImageError", "Failed to create directory: " + file.getAbsolutePath());
+                return null;
+            }
+
+            File imageFile = new File(file, System.currentTimeMillis() + ".jpg");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, len);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+            Log.d("SaveImageDebug", "Image saved to: " + imageFile.getAbsolutePath());
+            return imageFile.getAbsolutePath();
+        } catch (Exception e) {
+            Log.e("SaveImageError", "Error saving image", e);
             return null;
         }
+    }
 
-}
+
 }
 
