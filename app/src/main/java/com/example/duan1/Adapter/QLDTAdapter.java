@@ -47,6 +47,8 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
     public QLDT qldt;
     private static final int REQUEST_CODE_PICK_IMAGE = 100;
 
+    ImageView btn_updateimg_qldt;
+
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
         this.list = list;
@@ -163,7 +165,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         EditText edt_gia_qldtS= view.findViewById(R.id.edt_gia_qldtS);
         Button btn_update_qldt= view.findViewById(R.id.btn_update_qldt);
         Button btn_cancel_qldtS= view.findViewById(R.id.btn_cancel_qldtS);
-        ImageView btn_updateimg_qldt= view.findViewById(R.id.btn_updateimg_qldt);
+        btn_updateimg_qldt= view.findViewById(R.id.btn_updateimg_qldt);
 
 
         //dua du lieu len tv
@@ -245,6 +247,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
                 }
             }
         });
+
     }
 
     private void showDialogDelete(String tendt, int madt){
