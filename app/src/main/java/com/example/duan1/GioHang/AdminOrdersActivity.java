@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Adapter.AdminOrdersAdapter;
@@ -38,6 +39,9 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
 
         // Lấy danh sách đơn hàng
         orders = orderDAO.getAllOrders();
+        ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
 
         // Set adapter cho RecyclerView
         adapter = new AdminOrdersAdapter(this, orders, this);

@@ -1,3 +1,4 @@
+
 package com.example.duan1.SQLite;
 
 import android.annotation.SuppressLint;
@@ -9,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class OrderDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "order_db";
-    private static final int DATABASE_VERSION = 3;  // Tăng version khi thay đổi cấu trúc
+    private static final int DATABASE_VERSION = 7;  // Tăng version khi thay đổi cấu trúc
 
     // Tên bảng và cột
     public static final String TABLE_ORDERS = "orders";
@@ -36,12 +37,42 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ORDERS_TABLE);
 
     }
+    public boolean isColumnExists(SQLiteDatabase db, String tableName, String columnName) {
+        Cursor cursor = null;
+        boolean exists = false;
+
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    @SuppressLint("Range") // Để tránh lỗi lint cảnh báo về chỉ số
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                    if (columnName.equals(name)) {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return exists;
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3) {
-            String ADD_APPROVAL_STATUS_COLUMN = "ALTER TABLE " + TABLE_ORDERS + " ADD COLUMN " + COLUMN_APPROVAL_STATUS + " TEXT DEFAULT 'Pending'";
-            db.execSQL(ADD_APPROVAL_STATUS_COLUMN);
+        // Nếu database cũ nhỏ hơn version mới và cột chưa tồn tại, thêm cột mới
+        if (oldVersion < DATABASE_VERSION) {
+            if (!isColumnExists(db, TABLE_ORDERS, COLUMN_APPROVAL_STATUS)) {
+                String ADD_APPROVAL_STATUS_COLUMN = "ALTER TABLE " + TABLE_ORDERS +
+                        " ADD COLUMN " + COLUMN_APPROVAL_STATUS +
+                        " TEXT DEFAULT 'Pending'";
+                db.execSQL(ADD_APPROVAL_STATUS_COLUMN);
+            }
         }
     }
+
 }

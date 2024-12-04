@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CartDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CartDatabase.db";
-    private static final int DATABASE_VERSION = 15; // Cập nhật version
+    private static final int DATABASE_VERSION = 16; // Cập nhật version
 
     // Bảng giỏ hàng
     public static final String TABLE_CART = "cart";

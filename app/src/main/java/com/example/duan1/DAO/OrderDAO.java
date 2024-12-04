@@ -1,9 +1,11 @@
+
 package com.example.duan1.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.Models.Order;
@@ -109,7 +111,7 @@ public class OrderDAO {
     }
 
     // Lấy đơn hàng theo ID
-    public Order getOrderById(int orderId) {
+    public Order getOrderId(int orderId) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         Order order = null;
@@ -180,23 +182,41 @@ public class OrderDAO {
         int rowsAffected = 0;
 
         try {
+            // Mở cơ sở dữ liệu ở chế độ ghi
             db = dbHelper.getWritableDatabase();
 
-            // Xóa đơn hàng theo ID
+            // Log ID cần xóa
+            Log.d("OrderDAO", "Attempting to delete order with ID: " + orderId);
+
+            // Kiểm tra nếu ID hợp lệ
+            if (orderId <= 0) {
+                Log.e("OrderDAO", "Invalid orderId: " + orderId);
+                return 0; // Trả về 0 nếu orderId không hợp lệ
+            }
+
+            // Xóa đơn hàng với ID cụ thể
             String whereClause = OrderDatabaseHelper.COLUMN_ORDER_ID + " = ?";
             String[] whereArgs = {String.valueOf(orderId)};
 
+            // Thực hiện lệnh xóa
             rowsAffected = db.delete(OrderDatabaseHelper.TABLE_ORDERS, whereClause, whereArgs);
+
+            // Log kết quả xóa
+            Log.d("OrderDAO", "Rows affected: " + rowsAffected);
+
         } catch (Exception e) {
-            e.printStackTrace(); // In lỗi nếu có
+            e.printStackTrace(); // In ra lỗi nếu có
         } finally {
+            // Đảm bảo đóng cơ sở dữ liệu khi không sử dụng
             if (db != null && db.isOpen()) {
                 db.close();
             }
         }
 
-        return rowsAffected;
+        return rowsAffected; // Trả về số dòng bị ảnh hưởng
     }
+
+
 
     public void updateOrderStatus(long orderId, String approvalStatus) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -210,5 +230,6 @@ public class OrderDAO {
         db.update(OrderDatabaseHelper.TABLE_ORDERS, values, selection, selectionArgs);
         db.close();
     }
+
 
 }

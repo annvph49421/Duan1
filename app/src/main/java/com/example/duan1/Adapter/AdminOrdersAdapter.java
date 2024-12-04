@@ -35,6 +35,8 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orders.get(position);
 
+
+
         holder.tvOrderAddress.setText("Địa chỉ: " + order.getAddress());
         holder.tvOrderTotalPrice.setText("Tổng cộng: " + order.getTotalPrice() + " đ");
         holder.tvOrderStatus.setText("Trạng thái: " + order.getStatus());

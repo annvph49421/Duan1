@@ -1,3 +1,4 @@
+
 package com.example.duan1.Models;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Order {
         this.approvalStatus = approvalStatus;
     }
 
-    public Order(String approvalStatus) {
+    public Order(String approvalStatus, int totalPrice, String orderStatus, String string) {
         this.approvalStatus = approvalStatus;
     }
 
@@ -39,10 +40,10 @@ public class Order {
 
     public Order(String address, int orderId, String productDetails, String status, int totalPrice) {
         this.address = address;
-        this.orderId = orderId;
-        this.productDetails = productDetails;
-        this.status = status;
         this.totalPrice = totalPrice;
+        this.status = status;
+        this.productDetails = productDetails;
+        this.orderId = orderId;  //
         if (cartItems == null) {
             this.cartItems = new ArrayList<>();
         } else {

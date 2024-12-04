@@ -17,6 +17,9 @@ public class DbHelperQLDT extends SQLiteOpenHelper {
          String qDSDT= "CREATE TABLE DANHSACHDT(madt INTEGER PRIMARY KEY AUTOINCREMENT, tendt TEXT, sao DOUBLE, dungluong TEXT, gia INTEGER, image1 TEXT NOT NULL)";
          sqLiteDatabase.execSQL(qDSDT);
 
+
+
+
     }
 
     @Override

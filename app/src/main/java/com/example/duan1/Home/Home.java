@@ -117,21 +117,23 @@ public class Home extends AppCompatActivity {
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            Fragment fragment = null;
-            int id = item.getItemId();
-            if (id == R.id.mHome) {
-                toolBar.setTitle("Trang chủ");
-                fragment =HomeFragment.newInstance();
-            }else if (id == R.id.mDSDT){
-                toolBar.setTitle("Danh sách điện thoại");
-                fragment= DSDienThoaiFragment.newInstance();
-            }else if(id == R.id.mQLDT){
-                toolBar.setTitle("Quản lý điện thoại");
-                fragment= QuanLyDTFragment.newInstance();
-            } else if (id == R.id.mQLDH) {
-                Intent inten = new Intent(Home.this, AdminOrdersActivity.class);
-                startActivity(inten);
-            }
+                    Fragment fragment = null;
+                    int id = item.getItemId();
+                    if (id == R.id.mHome) {
+                        toolBar.setTitle("Trang chủ");
+                        fragment = HomeFragment.newInstance();
+                    } else if (id == R.id.mDSDT) {
+                        toolBar.setTitle("Danh sách điện thoại");
+                        fragment = DSDienThoaiFragment.newInstance();
+                    } else if (id == R.id.mQLDT) {
+                        toolBar.setTitle("Quản lý điện thoại");
+                        fragment = QuanLyDTFragment.newInstance();
+                    } else if (id == R.id.mQLDH) {
+                        Intent inten = new Intent(Home.this, AdminOrdersActivity.class);
+                        startActivity(inten);
+                    }
+
+
 
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
@@ -194,9 +196,9 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
-//        } else if (item.getItemId() == R.id.mbvi) {
-//            Intent intent = new Intent(Home.this, OrderConfirmationActivity.class);
-//            startActivity(intent);
+        } else if (item.getItemId() == R.id.mbvi) {
+            Intent intent = new Intent(Home.this, OrdersActivity.class);
+            startActivity(intent);
 //
 //        }else if(item.getItemId()==R.id.mQLDH){
 //            Intent inten = new Intent(Home.this, AdminOrderActivity.class);
@@ -213,6 +215,7 @@ public class Home extends AppCompatActivity {
     //Cac tinh nang cua tung vai tro
     private void enableAdminFeatures() {
         navigationView.getMenu().findItem(R.id.mQLDT).setVisible(true); // Quản lý điện thoại chỉ hiển thị cho admin
+        navigationView.getMenu().findItem(R.id.mQLDH).setVisible(true);// quan ly don hang
     }
 
     private void disableAdminFeatures() {
