@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -35,7 +33,6 @@ import com.example.duan1.Models.QLDT;
 import com.example.duan1.R;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -134,7 +131,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
             tvql_xoa= itemView.findViewById(R.id.tvql_xoa);
             tvql_gia= itemView.findViewById(R.id.tvql_gia);
             tvql_dungluong= itemView.findViewById(R.id.tvql_dungluong);
-            tvql_rate= itemView.findViewById(R.id.tvql_rate);
+            tvql_rate= itemView.findViewById(R.id.tvds_rate);
             tvql_tendt= itemView.findViewById(R.id.tvql_tendt);
             btn_sua_qldt= itemView.findViewById(R.id.btn_sua_qldt);
             img_ct_dt= itemView.findViewById(R.id.img_ct_dt);

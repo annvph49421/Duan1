@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_ct_dt"
+            android:id="@+id/img_ds_dt"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/bg_ip15"/>
@@ -31,19 +31,12 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:id="@+id/tvql_tendt"
+                    android:id="@+id/tvds_tendt"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:text="Iphone 15"/>
 
-                <TextView
-                    android:id="@+id/btn_sua_qldt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chỉnh sửa"
-                    android:textColor="@color/black"
-                    />
 
             </LinearLayout>
 
@@ -89,7 +82,7 @@
                         >
 
                         <TextView
-                            android:id="@+id/tvql_dungluong"
+                            android:id="@+id/tvds_dungluong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -118,23 +111,13 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:id="@+id/tvql_gia"
+                    android:id="@+id/tvds_gia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="16.000.000 VNĐ"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tvql_xoa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="xóa"
-                    android:textColor="#FF0000"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="50dp"
-                    />
 
             </LinearLayout>
 
