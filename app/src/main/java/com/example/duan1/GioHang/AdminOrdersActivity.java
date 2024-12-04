@@ -1,20 +1,13 @@
 package com.example.duan1.GioHang;
 
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1.Adapter.AdminOrdersAdapter;
-import com.example.duan1.Adapter.OrderAdapter;
 import com.example.duan1.DAO.OrderDAO;
 import com.example.duan1.Models.Order;
 import com.example.duan1.R;
@@ -41,8 +34,6 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         orders = orderDAO.getAllOrders();
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         // Set adapter cho RecyclerView
         adapter = new AdminOrdersAdapter(this, orders, this);
         ordersRecyclerView.setAdapter(adapter);
@@ -57,10 +48,15 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         // Cập nhật lại cơ sở dữ liệu
         orderDAO.updateOrder(order);
 
-        // Cập nhật lại danh sách và notify adapter
+        // Cập nhật lại danh sách và notify adapter cho admin
         orders.clear();
         orders.addAll(orderDAO.getAllOrders());
         adapter.notifyDataSetChanged();
+
+        // Cập nhật lại danh sách đơn hàng ở phía người dùng
+        updateUserOrders();
+
+        Toast.makeText(this, "Đơn hàng đã được phê duyệt!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -72,9 +68,25 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         // Cập nhật lại cơ sở dữ liệu
         orderDAO.updateOrder(order);
 
-        // Cập nhật lại danh sách và notify adapter
+        // Cập nhật lại danh sách và notify adapter cho admin
         orders.clear();
         orders.addAll(orderDAO.getAllOrders());
         adapter.notifyDataSetChanged();
+
+        // Cập nhật lại danh sách đơn hàng ở phía người dùng
+        updateUserOrders();
+
+        Toast.makeText(this, "Đơn hàng đã bị từ chối!", Toast.LENGTH_SHORT).show();
+    }
+
+    // Phương thức cập nhật đơn hàng cho người dùng
+    private void updateUserOrders() {
+        // Lấy lại danh sách đơn hàng mới cho người dùng
+        List<Order> userOrders = orderDAO.getAllOrders();
+
+        // Tạo lại adapter cho ListView người dùng (hoặc RecyclerView nếu bạn dùng)
+        // Giả sử bạn có một ListView cho đơn hàng người dùng:
+        OrdersActivity orderActivity = new OrdersActivity();
+        orderActivity.updateOrderList(userOrders);  // Gọi phương thức cập nhật danh sách đơn hàng ở phía người dùng
     }
 }

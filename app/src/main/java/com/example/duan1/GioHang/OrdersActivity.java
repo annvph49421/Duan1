@@ -43,4 +43,13 @@ public class OrdersActivity extends AppCompatActivity {
         orderAdapter = new OrderAdapter(this, orders);
         orderListView.setAdapter(orderAdapter);
     }
+    // Phương thức này sẽ được gọi từ AdminOrdersActivity để cập nhật lại danh sách đơn hàng ở phía người dùng
+    public void updateOrderList(List<Order> updatedOrders) {
+        // Cập nhật lại danh sách đơn hàng
+        orders.clear();
+        orders.addAll(updatedOrders);
+
+        // Thông báo adapter để cập nhật giao diện
+        orderAdapter.notifyDataSetChanged();
+    }
 }

@@ -122,6 +122,19 @@ public class CartDAO {
             return null; // Không có địa chỉ
         }
     }
+//    public boolean updateOrderStatus(int orderId, String status, String approvalStatus) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("status", status);
+//        values.put("approval_status", approvalStatus);
+//
+//        // Trả về số hàng được cập nhật
+//        int rowsAffected = db.update("orders", values, "order_id = ?", new String[]{String.valueOf(orderId)});
+//        return rowsAffected > 0; // True nếu cập nhật thành công
+//    }
+
+
+
 
 
 

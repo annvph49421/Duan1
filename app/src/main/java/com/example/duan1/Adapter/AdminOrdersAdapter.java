@@ -43,6 +43,7 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
         holder.tvProductDetails.setText("Sản phẩm: " + order.getProductDetails());
         holder.tvOrderApprovalStatus.setText("Trạng thái phê duyệt: " + order.getApprovalStatus());
 
+
         // Handle the approve button click
         holder.btnApprove.setOnClickListener(v -> {
             order.setApprovalStatus("Approved");
