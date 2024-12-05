@@ -26,12 +26,23 @@ public class CartDAO {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(CartDatabaseHelper.COLUMN_PRODUCT_NAME, item.getProductName());
-            values.put(CartDatabaseHelper.COLUMN_QUANTITY, item.getQuantity());
-            values.put(CartDatabaseHelper.COLUMN_PRICE, item.getPrice());
-            values.put(CartDatabaseHelper.COLUMN_IMAGE, item.getImageResId());
-            db.insert(CartDatabaseHelper.TABLE_CART, null, values);
+
+            // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+            CartItem existingItem = getCartItemByProductName(item.getProductName());
+
+            if (existingItem != null) {
+                // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
+                existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
+                updateQuantity(existingItem);  // Cập nhật số lượng trong giỏ
+            } else {
+                // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng
+                ContentValues values = new ContentValues();
+                values.put(CartDatabaseHelper.COLUMN_PRODUCT_NAME, item.getProductName());
+                values.put(CartDatabaseHelper.COLUMN_QUANTITY, item.getQuantity());
+                values.put(CartDatabaseHelper.COLUMN_PRICE, item.getPrice());
+                values.put(CartDatabaseHelper.COLUMN_IMAGE, item.getImageResId());
+                db.insert(CartDatabaseHelper.TABLE_CART, null, values);
+            }
         } catch (Exception e) {
             // Xử lý lỗi nếu có
         } finally {
@@ -132,6 +143,31 @@ public class CartDAO {
 //        int rowsAffected = db.update("orders", values, "order_id = ?", new String[]{String.valueOf(orderId)});
 //        return rowsAffected > 0; // True nếu cập nhật thành công
 //    }
+public CartItem getCartItemByProductName(String productName) {
+    SQLiteDatabase db = dbHelper.getReadableDatabase();
+    Cursor cursor = db.query(
+            CartDatabaseHelper.TABLE_CART,
+            null,
+            CartDatabaseHelper.COLUMN_PRODUCT_NAME + " = ?",  // Điều kiện
+            new String[]{productName},  // Dữ liệu tìm kiếm
+            null,
+            null,
+            null
+    );
+
+    if (cursor != null && cursor.moveToFirst()) {
+        String name = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_NAME));
+        int quantity = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_QUANTITY));
+        int price = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRICE));
+        int image = cursor.getInt(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_IMAGE));
+
+        cursor.close();
+        return new CartItem(name, quantity, price, image);
+    }
+
+    cursor.close();
+    return null;  // Nếu không tìm thấy sản phẩm
+}
 
 
 
