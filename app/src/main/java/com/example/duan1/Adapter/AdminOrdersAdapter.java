@@ -1,6 +1,7 @@
 package com.example.duan1.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,29 +36,35 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orders.get(position);
 
-
-
         holder.tvOrderAddress.setText("Địa chỉ: " + order.getAddress());
         holder.tvOrderTotalPrice.setText("Tổng cộng: " + order.getTotalPrice() + " đ");
         holder.tvOrderStatus.setText("Trạng thái: " + order.getStatus());
         holder.tvProductDetails.setText("Sản phẩm: " + order.getProductDetails());
         holder.tvOrderApprovalStatus.setText("Trạng thái phê duyệt: " + order.getApprovalStatus());
 
-
-        // Handle the approve button click
+        // Xử lý nút phê duyệt
         holder.btnApprove.setOnClickListener(v -> {
-            order.setApprovalStatus("Approved");
-            // Cập nhật trạng thái đơn hàng trong database
+            order.setApprovalStatus("Đặt thành công");
+            order.setStatus("Đang giao hàng");
             updateOrderApprovalStatus(order);
+
+            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
+            Intent intent = new Intent("UPDATE_ORDERS");
+            context.sendBroadcast(intent);
         });
 
-        // Handle the cancel button click
+        // Xử lý nút từ chối
         holder.btnCancel.setOnClickListener(v -> {
-            order.setApprovalStatus("Cancelled");
-            // Cập nhật trạng thái đơn hàng trong database
+            order.setApprovalStatus("Đặt thất bại");
+            order.setStatus("Đã hủy");
             updateOrderApprovalStatus(order);
+
+            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
+            Intent intent = new Intent("UPDATE_ORDERS");
+            context.sendBroadcast(intent);
         });
     }
+
 
     private void updateOrderApprovalStatus(Order order) {
         OrderDAO orderDAO = new OrderDAO(context);
@@ -69,6 +76,8 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
     public int getItemCount() {
         return orders.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvOrderAddress, tvOrderTotalPrice, tvOrderStatus, tvProductDetails, tvOrderApprovalStatus;

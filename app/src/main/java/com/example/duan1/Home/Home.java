@@ -26,6 +26,7 @@ import com.example.duan1.GioHang.CartActivity;
 import com.example.duan1.GioHang.OrdersActivity;
 import com.example.duan1.ManHinhTT.TTCaNhanFragment;
 import com.example.duan1.R;
+import com.example.duan1.SQLite.StatisticActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,8 +63,7 @@ public class Home extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
 
 
-        //annvph49421@gmail.com
-        //11062005
+
         //An chuc nang dua tren vai tro
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -132,9 +132,13 @@ public class Home extends AppCompatActivity {
                     } else if (id == R.id.mQLDH) {
                         Intent inten = new Intent(Home.this, AdminOrdersActivity.class);
                         startActivity(inten);
+                        return true;
+                    } else if (id == R.id.mTK) {
+                        Intent intent = new Intent(Home.this, StatisticActivity.class);
+                        startActivity(intent);
+                        return true;
+
                     }
-
-
 
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();

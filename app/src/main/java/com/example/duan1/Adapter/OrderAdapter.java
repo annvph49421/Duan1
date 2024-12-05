@@ -45,7 +45,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         TextView tvOrderStatus = convertView.findViewById(R.id.tvOrderStatus);
         TextView tvProductDetails = convertView.findViewById(R.id.tvProductDetails);
         TextView tvOrderApprovalStatus = convertView.findViewById(R.id.tvOrderApprovalStatus);
-        TextView tvOrderTime = convertView.findViewById(R.id.tvOrderTime);
+       // TextView tvOrderTime = convertView.findViewById(R.id.tvOrderTime);
         Button btnDeleteOrder = convertView.findViewById(R.id.btnDeleteOrder);
 
         // Thiết lập giá trị cho các TextView

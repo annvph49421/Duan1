@@ -1,5 +1,6 @@
 package com.example.duan1.GioHang;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -41,52 +42,51 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
 
     @Override
     public void onApproveClick(Order order) {
-        // Cập nhật trạng thái đơn hàng thành "Đặt thành công"
+        // Cập nhật trạng thái đơn hàng khi phê duyệt
         order.setApprovalStatus("Đặt thành công");
         order.setStatus("Đang giao hàng");
 
-        // Cập nhật lại cơ sở dữ liệu
-        orderDAO.updateOrder(order);
+        // Kiểm tra kết quả cập nhật
+        int rowsAffected = orderDAO.updateOrder(order);
+        if (rowsAffected > 0) {
+            // Làm mới danh sách đơn hàng trong admin
+            orders.clear();
+            orders.addAll(orderDAO.getAllOrders());
+            adapter.notifyDataSetChanged();
 
-        // Cập nhật lại danh sách và notify adapter cho admin
-        orders.clear();
-        orders.addAll(orderDAO.getAllOrders());
-        adapter.notifyDataSetChanged();
+            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
+            Intent intent = new Intent("UPDATE_ORDERS");
+            sendBroadcast(intent);
 
-        // Cập nhật lại danh sách đơn hàng ở phía người dùng
-        updateUserOrders();
-
-        Toast.makeText(this, "Đơn hàng đã được phê duyệt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đơn hàng đã được phê duyệt!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Có lỗi xảy ra khi phê duyệt đơn hàng!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onRejectClick(Order order) {
-        // Cập nhật trạng thái đơn hàng thành "Đặt thất bại"
+        // Cập nhật trạng thái đơn hàng khi từ chối
         order.setApprovalStatus("Đặt thất bại");
         order.setStatus("Đã hủy");
 
-        // Cập nhật lại cơ sở dữ liệu
-        orderDAO.updateOrder(order);
+        // Kiểm tra kết quả cập nhật
+        int rowsAffected = orderDAO.updateOrder(order);
+        if (rowsAffected > 0) {
+            // Làm mới danh sách đơn hàng trong admin
+            orders.clear();
+            orders.addAll(orderDAO.getAllOrders());
+            adapter.notifyDataSetChanged();
 
-        // Cập nhật lại danh sách và notify adapter cho admin
-        orders.clear();
-        orders.addAll(orderDAO.getAllOrders());
-        adapter.notifyDataSetChanged();
+            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
+            Intent intent = new Intent("UPDATE_ORDERS");
+            sendBroadcast(intent);
 
-        // Cập nhật lại danh sách đơn hàng ở phía người dùng
-        updateUserOrders();
-
-        Toast.makeText(this, "Đơn hàng đã bị từ chối!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đơn hàng đã bị từ chối!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Có lỗi xảy ra khi từ chối đơn hàng!", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    // Phương thức cập nhật đơn hàng cho người dùng
-    private void updateUserOrders() {
-        // Lấy lại danh sách đơn hàng mới cho người dùng
-        List<Order> userOrders = orderDAO.getAllOrders();
 
-        // Tạo lại adapter cho ListView người dùng (hoặc RecyclerView nếu bạn dùng)
-        // Giả sử bạn có một ListView cho đơn hàng người dùng:
-        OrdersActivity orderActivity = new OrdersActivity();
-        orderActivity.updateOrderList(userOrders);  // Gọi phương thức cập nhật danh sách đơn hàng ở phía người dùng
-    }
 }

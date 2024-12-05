@@ -52,13 +52,7 @@
         android:layout_height="wrap_content"
 
         android:text="Trạng thái: " />
-    <TextView
-        android:id="@+id/tvOrderTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thời gian đặt hàng"
-        android:textSize="14sp"
-        android:padding="8dp" />
+
     <Button
         android:id="@+id/btnDeleteOrder"
         android:layout_width="wrap_content"
@@ -66,7 +60,7 @@
         android:text="Hủy đơn hàng"
 
 
-        android:textColor="@android:color/white"
+
         android:padding="8dp" />
 
 

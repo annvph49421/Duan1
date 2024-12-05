@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.Models.Order;
 import com.example.duan1.SQLite.OrderDatabaseHelper;
+import com.example.duan1.SQLite.TopPhone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,6 +177,7 @@ public class OrderDAO {
         return rowsAffected;
     }
 
+
     // Xóa đơn hàng trong cơ sở dữ liệu
     public int deleteOrder(int orderId) {
         SQLiteDatabase db = null;
@@ -227,9 +229,47 @@ public class OrderDAO {
         String selection = OrderDatabaseHelper.COLUMN_ORDER_ID + " = ?";
         String[] selectionArgs = { String.valueOf(orderId) };
 
-        db.update(OrderDatabaseHelper.TABLE_ORDERS, values, selection, selectionArgs);
+        int rowsAffected = db.update(OrderDatabaseHelper.TABLE_ORDERS, values, selection, selectionArgs);
+        Log.d("OrderDAO", "Rows affected by update: " + rowsAffected);  // Kiểm tra số dòng bị ảnh hưởng
         db.close();
     }
+
+    // OrderDAO.java
+    public List<TopPhone> getTopPhonesByPeriod(String period) {
+        SQLiteDatabase db = null;
+        List<TopPhone> topPhones = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            db = dbHelper.getReadableDatabase();
+            String query = "SELECT product_details, SUM(quantity) as sold_quantity FROM orders GROUP BY product_details ORDER BY sold_quantity DESC";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String productName = cursor.getString(cursor.getColumnIndex("product_details"));
+                    int soldQuantity = cursor.getInt(cursor.getColumnIndex("sold_quantity"));
+                    TopPhone topPhone = new TopPhone(productName, soldQuantity);
+                    topPhones.add(topPhone);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+        return topPhones;
+    }
+
+
+
+
+
 
 
 }
