@@ -34,14 +34,14 @@
 
     </LinearLayout>
 
+
+    <!-- Hiển thị icon thêm địa chỉ nếu chưa có -->
     <ListView
         android:id="@+id/cartListView"
         android:layout_width="match_parent"
         android:layout_height="388dp"
         android:layout_marginTop="20dp" />
 
-
-    <!-- Hiển thị icon thêm địa chỉ nếu chưa có -->
     <ImageView
         android:id="@+id/btnAddAddress"
         android:layout_width="40dp"

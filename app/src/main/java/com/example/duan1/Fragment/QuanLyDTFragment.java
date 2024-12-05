@@ -36,6 +36,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.duan1.Adapter.OnImageSelectedListener;
 import com.example.duan1.Adapter.QLDTAdapter;
 import com.example.duan1.DAO.QLDTDAO;
 import com.example.duan1.Models.QLDT;
@@ -44,6 +45,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuanLyDTFragment extends Fragment {
     private RecyclerView recyclerView_qldt;
@@ -53,6 +55,8 @@ public class QuanLyDTFragment extends Fragment {
 
     private static final int REQUEST_CODE_PERMISSION = 100;
     private ImageView btn_addimg_qldt;
+    private QLDTAdapter adapter;
+
 
 
 
@@ -63,6 +67,7 @@ public class QuanLyDTFragment extends Fragment {
 
         recyclerView_qldt= view.findViewById(R.id.recyclerView_qldt);
         floatAdd_qldt= view.findViewById(R.id.floatAdd_qldt);
+
 
 
         qldtdao= new QLDTDAO(getContext());
@@ -84,6 +89,8 @@ public class QuanLyDTFragment extends Fragment {
 
         return view;
     }
+
+
 
     private void showDialogAdd(){
         AlertDialog.Builder builder= new AlertDialog.Builder(getContext());
@@ -163,11 +170,14 @@ public class QuanLyDTFragment extends Fragment {
 
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data.getData() != null){
             Uri selectedImageUri= data.getData();
+
+
             Log.d("URI", "Selected Image URI: " + selectedImageUri);
 
             try {
@@ -195,7 +205,8 @@ public class QuanLyDTFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
         recyclerView_qldt.setLayoutManager(linearLayoutManager);
-        QLDTAdapter adapter= new QLDTAdapter(getContext(), list, qldtdao);
+        adapter= new QLDTAdapter(getContext(), list, qldtdao);
+
         recyclerView_qldt.setAdapter(adapter);
     }
 

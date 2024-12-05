@@ -35,24 +35,22 @@ import com.example.duan1.R;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
     private Context context;
     private ArrayList<QLDT> list;
 
     private QLDTDAO qldtdao;
-    public QLDT qldt;
     private static final int REQUEST_CODE_PICK_IMAGE = 100;
 
-    ImageView btn_updateimg_qldt;
+    private ImageView btn_updateimg_qldt;
 
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
         this.list = list;
         this.qldtdao = qldtdao;
     }
-
-
 
     @NonNull
     @Override
@@ -73,6 +71,7 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         holder.tvql_dungluong.setText(list.get(position).getDungluong());
         holder.tvql_gia.setText(String.valueOf(Utils.formatCurrency(list.get(position).getGia())));
 
+        //hien thi anh len adapter
         String imagePath= currentQLDT.getImage();
         if (currentQLDT.getImage() != null){
             Glide.with(holder.itemView.getContext())
@@ -171,15 +170,16 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         edt_dunglg_qldtS.setText(qldt.getDungluong());
         edt_gia_qldtS.setText(String.valueOf(qldt.getGia()));
 
-        //hien thi anh
+        //hien thi anh len dialog update
         String imagePath = qldt.getImage();
         File imageFile = new File(imagePath);
         Uri imageUri = Uri.fromFile(imageFile);
 
+
         if (imagePath != null && !imagePath.isEmpty()){
             Log.d("ImagePath", "Image path: " + imagePath);
             Glide.with(context)
-                    .load(imageUri)
+                    .load(imagePath)
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -246,6 +246,9 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         });
 
     }
+
+
+
 
     private void showDialogDelete(String tendt, int madt){
         AlertDialog.Builder builder= new AlertDialog.Builder(context);
