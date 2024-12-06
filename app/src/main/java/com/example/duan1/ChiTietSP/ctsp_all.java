@@ -15,14 +15,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.duan1.DAO.CartDAO;
-import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.GioHang.CartActivity;
-import com.example.duan1.MainActivity;
 import com.example.duan1.Models.CartItem;
 import com.example.duan1.R;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 public class ctsp_all extends AppCompatActivity {
     ImageView btnBack, btnCong, btnTru,img_ct;

@@ -17,7 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.duan1.Fragment.DSDTFragment;
-import com.example.duan1.Fragment.DSDienThoaiFragment;
 import com.example.duan1.Fragment.HomeFragment;
 
 import com.example.duan1.Fragment.QuanLyDTFragment;

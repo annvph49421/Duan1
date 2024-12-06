@@ -35,6 +35,7 @@ import com.example.duan1.R;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
     private Context context;
@@ -46,13 +47,12 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
     ImageView btn_updateimg_qldt;
 
+
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
         this.list = list;
         this.qldtdao = qldtdao;
     }
-
-
 
     @NonNull
     @Override
@@ -73,30 +73,40 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         holder.tvql_dungluong.setText(list.get(position).getDungluong());
         holder.tvql_gia.setText(String.valueOf(Utils.formatCurrency(list.get(position).getGia())));
 
-        String imagePath= currentQLDT.getImage();
-        if (currentQLDT.getImage() != null){
-            Glide.with(holder.itemView.getContext())
-                    .load(imagePath)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Log.e("GlideError", "Failed to load image: " + imagePath, e);
-                            return false; // Hiển thị ảnh lỗi
-                        }
+        //hienthi anh ngoai adapter
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("GlideSuccess", "Image loaded successfully: " + imagePath);
-                            return false;
-                        }
-                    })
+        String tendtimg= currentQLDT.getTendt();
+        if (tendtimg.toLowerCase().contains("iphone")){
+            Glide.with(context)
+                    .load(R.drawable.product_ip15promax_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ct_dt);
+
+        }else if (tendtimg.toLowerCase().contains("samsung")){
+            Glide.with(context)
+                    .load(R.drawable.product_samsung_1)
                     .error(R.drawable.error_img)
                     .into(holder.img_ct_dt);
 
 
-        }else {
-            Glide.with(holder.itemView.getContext()).load(R.drawable.error_img).into(holder.img_ct_dt);
+        }else if (tendtimg.toLowerCase().contains("oppo")){
+            Glide.with(context)
+                    .load(R.drawable.product_oppo12_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ct_dt);
 
+
+        }else if (tendtimg.toLowerCase().contains("vivo")){
+            Glide.with(context)
+                    .load(R.drawable.product_vivo_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ct_dt);
+
+        }else {
+            Glide.with(context)
+                    .load(R.drawable.error_img)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ct_dt);
         }
 
         //sửa
@@ -171,31 +181,42 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         edt_dunglg_qldtS.setText(qldt.getDungluong());
         edt_gia_qldtS.setText(String.valueOf(qldt.getGia()));
 
-        //hien thi anh
-        String imagePath = qldt.getImage();
-        File imageFile = new File(imagePath);
-        Uri imageUri = Uri.fromFile(imageFile);
 
-        if (imagePath != null && !imagePath.isEmpty()){
-            Log.d("ImagePath", "Image path: " + imagePath);
+        String tendtimg= qldt.getTendt();
+        if (tendtimg.toLowerCase().contains("iphone")){
             Glide.with(context)
-                    .load(imageUri)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Log.e("GlideError", "Failed to load image: " + imagePath, e);
-                            return false; // Hiển thị ảnh lỗi
-                        }
+                    .load(R.drawable.product_ip15promax_1)
+                    .error(R.drawable.error_img)
+                    .into(btn_updateimg_qldt);
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("GlideSuccess", "Image loaded successfully: " + imagePath);
-                            return false;
-                        }
-                    })
+        }else if (tendtimg.toLowerCase().contains("samsung")){
+            Glide.with(context)
+                    .load(R.drawable.product_samsung_1)
+                    .error(R.drawable.error_img)
+                    .into(btn_updateimg_qldt);
+
+
+        }else if (tendtimg.toLowerCase().contains("oppo")){
+            Glide.with(context)
+                    .load(R.drawable.product_oppo12_1)
+                    .error(R.drawable.error_img)
+                    .into(btn_updateimg_qldt);
+
+
+        }else if (tendtimg.toLowerCase().contains("vivo")){
+            Glide.with(context)
+                    .load(R.drawable.product_vivo_1)
+                    .error(R.drawable.error_img)
+                    .into(btn_updateimg_qldt);
+
+        }else {
+            Glide.with(context)
+                    .load(R.drawable.error_img)
                     .error(R.drawable.error_img)
                     .into(btn_updateimg_qldt);
         }
+
+
 
         btn_updateimg_qldt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,15 +243,13 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
                 String gia= edt_gia_qldtS.getText().toString();
 
 
-                Uri imgUri= (Uri) btn_updateimg_qldt.getTag();
-                String image= imgUri != null ? imgUri.toString() : null;
 
                 if (tendt.length() == 0 || gia.length() == 0 || sao.length() == 0 || dungluong.length() == 0){
                     Toast.makeText(context, "Vui lòng không để trống", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    QLDT qldtSua= new QLDT(madt, tendt, sao, dungluong, Integer.parseInt(gia), image);
-                     boolean check= qldtdao.suaDT(qldtSua, imgUri);
+                    QLDT qldtSua= new QLDT(madt, tendt, sao, dungluong, Integer.parseInt(gia));
+                     boolean check= qldtdao.suaDT(qldtSua);
                      if (check){
                          Toast.makeText(context, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
                          list.clear();
@@ -246,6 +265,8 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
         });
 
     }
+
+
 
     private void showDialogDelete(String tendt, int madt){
         AlertDialog.Builder builder= new AlertDialog.Builder(context);

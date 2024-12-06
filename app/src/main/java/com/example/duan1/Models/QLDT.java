@@ -8,7 +8,6 @@ public class QLDT {
     private int gia;
     private String image;
 
-
     public QLDT(String tendt, String sao, String dungluong, int gia, String image) {
         this.tendt = tendt;
         this.sao = sao;
@@ -24,6 +23,14 @@ public class QLDT {
         this.dungluong = dungluong;
         this.gia = gia;
         this.image = image;
+    }
+
+    public QLDT(int madt, String tendt, String sao, String dungluong, int gia) {
+        this.madt = madt;
+        this.tendt = tendt;
+        this.sao = sao;
+        this.dungluong = dungluong;
+        this.gia = gia;
     }
 
     public int getMadt() {

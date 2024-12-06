@@ -44,6 +44,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuanLyDTFragment extends Fragment {
     private RecyclerView recyclerView_qldt;
@@ -53,7 +54,6 @@ public class QuanLyDTFragment extends Fragment {
 
     private static final int REQUEST_CODE_PERMISSION = 100;
     private ImageView btn_addimg_qldt;
-
 
 
     @Nullable
@@ -117,7 +117,7 @@ public class QuanLyDTFragment extends Fragment {
                 Uri imgUri= (Uri) btn_addimg_qldt.getTag();
 
 
-                if (tendt.length() == 0 || sao.length() == 0 || dungluong.length() == 0 || gia.length() == 0){
+                if (tendt.length() == 0 || sao.length() == 0 || dungluong.length() == 0 || gia.length() == 0 || imgUri == null){
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
 
                 }else {
@@ -163,12 +163,19 @@ public class QuanLyDTFragment extends Fragment {
 
     }
 
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data.getData() != null){
             Uri selectedImageUri= data.getData();
+
+
+
             Log.d("URI", "Selected Image URI: " + selectedImageUri);
+
 
             try {
                 if (btn_addimg_qldt != null){
@@ -185,10 +192,8 @@ public class QuanLyDTFragment extends Fragment {
         }
     }
 
-    public static QuanLyDTFragment newInstance() {
-        QuanLyDTFragment fragment = new QuanLyDTFragment();
-        return fragment;
-    }
+
+
 
     private void loadData(){
         ArrayList<QLDT> list= qldtdao.getDS();
@@ -199,6 +204,10 @@ public class QuanLyDTFragment extends Fragment {
         recyclerView_qldt.setAdapter(adapter);
     }
 
+    public static QuanLyDTFragment newInstance() {
+        QuanLyDTFragment fragment = new QuanLyDTFragment();
+        return fragment;
+    }
 
 
 

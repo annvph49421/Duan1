@@ -81,17 +81,16 @@ public class QLDTDAO {
     }
 
     //sửa
-    public boolean suaDT(QLDT qldt, Uri imgUri){
+    public boolean suaDT(QLDT qldt){
         SQLiteDatabase sqLiteDatabase= dbHelperQLDT.getWritableDatabase();
 
-        String imgPath= saveImageToStorage(imgUri);
 
         ContentValues contentValues= new ContentValues();
         contentValues.put("tendt", qldt.getTendt());
         contentValues.put("sao", qldt.getSao());
         contentValues.put("dungluong", qldt.getDungluong());
         contentValues.put("gia", qldt.getGia());
-        contentValues.put("image1", imgPath);
+
 
         int check= sqLiteDatabase.update("DANHSACHDT", contentValues, "madt= ?", new String[]{String.valueOf(qldt.getMadt())});
         if (check <= 0) return false;

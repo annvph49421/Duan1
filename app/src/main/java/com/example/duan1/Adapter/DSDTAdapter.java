@@ -51,30 +51,38 @@ public class DSDTAdapter extends RecyclerView.Adapter<DSDTAdapter.ViewHolder>{
         holder.tvds_dungluong.setText(list.get(position).getDungluong());
         holder.tvds_gia.setText(String.valueOf(QLDTAdapter.Utils.formatCurrency(list.get(position).getGia())));
 
-        String imagePath= currentQLDT.getImage();
-        if (currentQLDT.getImage() != null){
-            Glide.with(holder.itemView.getContext())
-                    .load(imagePath)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Log.e("GlideError", "Failed to load image: " + imagePath, e);
-                            return false; // Hiển thị ảnh lỗi
-                        }
+        String tendtimg= currentQLDT.getTendt();
+        if (tendtimg.toLowerCase().contains("iphone")){
+            Glide.with(context)
+                    .load(R.drawable.product_ip15promax_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ds_dt);
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("GlideSuccess", "Image loaded successfully: " + imagePath);
-                            return false;
-                        }
-                    })
+        }else if (tendtimg.toLowerCase().contains("samsung")){
+            Glide.with(context)
+                    .load(R.drawable.product_samsung_1)
                     .error(R.drawable.error_img)
                     .into(holder.img_ds_dt);
 
 
-        }else {
-            Glide.with(holder.itemView.getContext()).load(R.drawable.error_img).into(holder.img_ds_dt);
+        }else if (tendtimg.toLowerCase().contains("oppo")){
+            Glide.with(context)
+                    .load(R.drawable.product_oppo12_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ds_dt);
 
+
+        }else if (tendtimg.toLowerCase().contains("vivo")){
+            Glide.with(context)
+                    .load(R.drawable.product_vivo_1)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ds_dt);
+
+        }else {
+            Glide.with(context)
+                    .load(R.drawable.error_img)
+                    .error(R.drawable.error_img)
+                    .into(holder.img_ds_dt);
         }
 
     }
