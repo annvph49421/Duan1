@@ -55,6 +55,8 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
 
 
+    public interface OnImageSelectedListener { void onImageSelected(Uri imageUri); }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
