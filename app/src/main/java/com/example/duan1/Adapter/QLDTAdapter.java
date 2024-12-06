@@ -47,12 +47,13 @@ public class QLDTAdapter extends RecyclerView.Adapter<QLDTAdapter.ViewHolder> {
 
     ImageView btn_updateimg_qldt;
 
-
     public QLDTAdapter(Context context, ArrayList<QLDT> list, QLDTDAO qldtdao) {
         this.context = context;
         this.list = list;
         this.qldtdao = qldtdao;
     }
+
+
 
     @NonNull
     @Override

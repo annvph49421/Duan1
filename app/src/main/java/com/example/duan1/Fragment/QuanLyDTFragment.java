@@ -163,19 +163,13 @@ public class QuanLyDTFragment extends Fragment {
 
     }
 
-
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data.getData() != null){
             Uri selectedImageUri= data.getData();
 
-
-
             Log.d("URI", "Selected Image URI: " + selectedImageUri);
-
 
             try {
                 if (btn_addimg_qldt != null){
