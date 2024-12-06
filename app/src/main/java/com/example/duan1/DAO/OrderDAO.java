@@ -79,8 +79,9 @@ public class OrderDAO {
             // Mở cơ sở dữ liệu ở chế độ đọc
             db = dbHelper.getReadableDatabase();
 
-            // Truy vấn tất cả các đơn hàng
-            cursor = db.query(OrderDatabaseHelper.TABLE_ORDERS, null, null, null, null, null, null);
+            // Truy vấn tất cả các đơn hàng và sắp xếp theo orderId giảm dần (đơn hàng mới lên đầu)
+            cursor = db.query(OrderDatabaseHelper.TABLE_ORDERS, null, null, null, null, null,
+                    OrderDatabaseHelper.COLUMN_ORDER_ID + " DESC");
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -90,9 +91,11 @@ public class OrderDAO {
                     int totalPrice = cursor.getInt(cursor.getColumnIndex(OrderDatabaseHelper.COLUMN_TOTAL_PRICE));
                     String status = cursor.getString(cursor.getColumnIndex(OrderDatabaseHelper.COLUMN_STATUS));
                     String productDetails = cursor.getString(cursor.getColumnIndex(OrderDatabaseHelper.COLUMN_PRODUCT_DETAILS));
+                    String approvalStatus = cursor.getString(cursor.getColumnIndex(OrderDatabaseHelper.COLUMN_APPROVAL_STATUS)); // Lấy trạng thái phê duyệt
 
                     // Tạo đối tượng Order và thêm vào danh sách
                     Order order = new Order(address, totalPrice, status, productDetails, orderId);
+                    order.setApprovalStatus(approvalStatus); // Gán trạng thái phê duyệt
                     orders.add(order);
                 } while (cursor.moveToNext());
             }
@@ -110,6 +113,9 @@ public class OrderDAO {
 
         return orders;
     }
+
+
+
 
     // Lấy đơn hàng theo ID
     public Order getOrderId(int orderId) {
@@ -220,19 +226,39 @@ public class OrderDAO {
 
 
 
-    public void updateOrderStatus(long orderId, String approvalStatus) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public int updateOrderStatus(int orderId, String newStatus) {
+        SQLiteDatabase db = null;
+        int rowsAffected = 0;
 
-        ContentValues values = new ContentValues();
-        values.put(OrderDatabaseHelper.COLUMN_APPROVAL_STATUS, approvalStatus);  // Cập nhật trạng thái phê duyệt
+        try {
+            // Mở cơ sở dữ liệu ở chế độ ghi
+            db = dbHelper.getWritableDatabase();
 
-        String selection = OrderDatabaseHelper.COLUMN_ORDER_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(orderId) };
+            // Tạo ContentValues để cập nhật giá trị trạng thái
+            ContentValues values = new ContentValues();
+            values.put(OrderDatabaseHelper.COLUMN_STATUS, newStatus);  // Cập nhật trạng thái đơn hàng
+            values.put(OrderDatabaseHelper.COLUMN_APPROVAL_STATUS,newStatus);  // Cập nhật trạng thái phê duyệt
 
-        int rowsAffected = db.update(OrderDatabaseHelper.TABLE_ORDERS, values, selection, selectionArgs);
-        Log.d("OrderDAO", "Rows affected by update: " + rowsAffected);  // Kiểm tra số dòng bị ảnh hưởng
-        db.close();
+            // Chỉ định điều kiện để tìm đơn hàng cần cập nhật
+            String selection = OrderDatabaseHelper.COLUMN_ORDER_ID + " = ?";
+            String[] selectionArgs = { String.valueOf(orderId) };
+
+            // Thực hiện truy vấn update
+            rowsAffected = db.update(OrderDatabaseHelper.TABLE_ORDERS, values, selection, selectionArgs);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo rằng cơ sở dữ liệu được đóng khi không sử dụng nữa
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+
+        return rowsAffected;  // Trả về số dòng bị ảnh hưởng
     }
+
+
 
     // OrderDAO.java
     public List<TopPhone> getTopPhonesByPeriod(String period) {
@@ -265,8 +291,6 @@ public class OrderDAO {
         }
         return topPhones;
     }
-
-
 
 
 

@@ -43,8 +43,27 @@ public class OrdersActivity extends AppCompatActivity {
         // Set Adapter cho ListView
         orderAdapter = new OrderAdapter(this, orders);
         orderListView.setAdapter(orderAdapter);
+
+        // Kiểm tra nếu có đơn hàng mới được gửi qua Intent
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("newOrder")) {
+            Order newOrder = (Order) intent.getSerializableExtra("newOrder");
+            if (newOrder != null) {
+                addNewOrder(newOrder);
+            }
+        }
     }
-    // Phương thức này sẽ được gọi từ AdminOrdersActivity để cập nhật lại danh sách đơn hàng ở phía người dùng
+
+    // Phương thức thêm đơn hàng mới vào đầu danh sách
+    public void addNewOrder(Order newOrder) {
+        // Thêm đơn hàng mới vào đầu danh sách
+        orders.add(0, newOrder);
+
+        // Thông báo adapter để cập nhật giao diện
+        orderAdapter.notifyDataSetChanged();
+    }
+
+    // Phương thức này sẽ được gọi từ AdminOrdersActivity để cập nhật lại danh sách đơn hàng
     public void updateOrderList(List<Order> updatedOrders) {
         // Cập nhật lại danh sách đơn hàng
         orders.clear();
@@ -53,6 +72,4 @@ public class OrdersActivity extends AppCompatActivity {
         // Thông báo adapter để cập nhật giao diện
         orderAdapter.notifyDataSetChanged();
     }
-
-
 }

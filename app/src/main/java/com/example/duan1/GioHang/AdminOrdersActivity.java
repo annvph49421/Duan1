@@ -36,7 +36,7 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Set adapter cho RecyclerView
-        adapter = new AdminOrdersAdapter(this, orders, this);
+        adapter = new AdminOrdersAdapter(this, orders);
         ordersRecyclerView.setAdapter(adapter);
     }
 
@@ -50,13 +50,7 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         int rowsAffected = orderDAO.updateOrder(order);
         if (rowsAffected > 0) {
             // Làm mới danh sách đơn hàng trong admin
-            orders.clear();
-            orders.addAll(orderDAO.getAllOrders());
-            adapter.notifyDataSetChanged();
-
-            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
-            Intent intent = new Intent("UPDATE_ORDERS");
-            sendBroadcast(intent);
+            updateOrderList();
 
             Toast.makeText(this, "Đơn hàng đã được phê duyệt!", Toast.LENGTH_SHORT).show();
         } else {
@@ -74,13 +68,7 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         int rowsAffected = orderDAO.updateOrder(order);
         if (rowsAffected > 0) {
             // Làm mới danh sách đơn hàng trong admin
-            orders.clear();
-            orders.addAll(orderDAO.getAllOrders());
-            adapter.notifyDataSetChanged();
-
-            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
-            Intent intent = new Intent("UPDATE_ORDERS");
-            sendBroadcast(intent);
+            updateOrderList();
 
             Toast.makeText(this, "Đơn hàng đã bị từ chối!", Toast.LENGTH_SHORT).show();
         } else {
@@ -88,5 +76,14 @@ public class AdminOrdersActivity extends AppCompatActivity implements AdminOrder
         }
     }
 
+    // Phương thức để làm mới danh sách đơn hàng trong adapter
+    private void updateOrderList() {
+        orders.clear();
+        orders.addAll(orderDAO.getAllOrders());
+        adapter.notifyDataSetChanged();
 
+        // Gửi broadcast để thông báo cập nhật cho OrdersActivity (nếu cần)
+        Intent intent = new Intent("UPDATE_ORDERS");
+        sendBroadcast(intent);
+    }
 }

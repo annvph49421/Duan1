@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,7 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
     private List<Order> orders;
     private Context context;
 
-    public AdminOrdersAdapter(Context context, List<Order> orders, AdminOrdersActivity adminOrdersActivity) {
+    public AdminOrdersAdapter(Context context, List<Order> orders) {
         this.context = context;
         this.orders = orders;
     }
@@ -44,6 +45,7 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
 
         // Xử lý nút phê duyệt
         holder.btnApprove.setOnClickListener(v -> {
+            // Cập nhật trạng thái phê duyệt và đơn hàng
             order.setApprovalStatus("Đặt thành công");
             order.setStatus("Đang giao hàng");
             updateOrderApprovalStatus(order);
@@ -53,23 +55,41 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
             context.sendBroadcast(intent);
         });
 
-        // Xử lý nút từ chối
-        holder.btnCancel.setOnClickListener(v -> {
-            order.setApprovalStatus("Đặt thất bại");
-            order.setStatus("Đã hủy");
-            updateOrderApprovalStatus(order);
 
-            // Gửi broadcast để thông báo cập nhật cho OrdersActivity
-            Intent intent = new Intent("UPDATE_ORDERS");
-            context.sendBroadcast(intent);
-        });
     }
+    private void confirmOrder(Order order) {
+        // Cập nhật trạng thái phê duyệt và đơn hàng
+        order.setApprovalStatus("Đặt thành công");
+        order.setStatus("Đang giao hàng");
 
-
-    private void updateOrderApprovalStatus(Order order) {
+        // Cập nhật trạng thái trong cơ sở dữ liệu
         OrderDAO orderDAO = new OrderDAO(context);
         orderDAO.updateOrderStatus(order.getOrderId(), order.getApprovalStatus());
-        notifyDataSetChanged();  // Cập nhật lại danh sách đơn hàng
+
+        // Cập nhật lại dữ liệu trong adapter
+        int position = orders.indexOf(order);
+        if (position != -1) {
+            notifyItemChanged(position);  // Thông báo thay đổi cho item đã thay đổi
+        }
+
+        // Gửi broadcast để thông báo cập nhật cho OrdersActivity
+        Intent intent = new Intent("UPDATE_ORDERS");
+        context.sendBroadcast(intent);
+
+        // Thông báo cho người dùng
+        Toast.makeText(context, "Đơn hàng đã được xác nhận!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateOrderApprovalStatus(Order order) {
+        // Khởi tạo OrderDAO và cập nhật trạng thái phê duyệt
+        OrderDAO orderDAO = new OrderDAO(context);
+        orderDAO.updateOrderStatus(order.getOrderId(), order.getApprovalStatus());
+
+        // Cập nhật lại dữ liệu và thông báo thay đổi cho adapter
+        int position = orders.indexOf(order);  // Lấy vị trí của đơn hàng đã thay đổi
+        if (position != -1) {
+            notifyItemChanged(position);  // Chỉ thông báo thay đổi cho item đã thay đổi
+        }
     }
 
     @Override
@@ -77,11 +97,9 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
         return orders.size();
     }
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvOrderAddress, tvOrderTotalPrice, tvOrderStatus, tvProductDetails, tvOrderApprovalStatus;
-        Button btnApprove, btnCancel;
+        Button btnApprove, btnConfirm; // Chỉ giữ lại nút phê duyệt
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,14 +108,14 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
             tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
             tvProductDetails = itemView.findViewById(R.id.tvProductDetails);
             tvOrderApprovalStatus = itemView.findViewById(R.id.tvOrderApprovalStatus);
-            btnApprove = itemView.findViewById(R.id.btnApprove);
-            btnCancel = itemView.findViewById(R.id.btnCancel);
+            btnApprove = itemView.findViewById(R.id.btnApprove);  // Chỉ giữ lại nút phê duyệt
+
         }
     }
+
     // Interface để Activity hoặc Fragment có thể nhận sự kiện
     public interface OnItemClickListener {
         void onApproveClick(Order order);
         void onRejectClick(Order order);
     }
 }
-
